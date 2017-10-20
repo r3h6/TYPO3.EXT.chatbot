@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2017-10-05T18:28:34Z" product-name="chatbot">
+		<header/>
+		<body>
+			<trans-unit id="template.description">
+				<source>Template</source>
+			</trans-unit>
+			<trans-unit id="pattern.description">
+				<source>pattern</source>
+			</trans-unit>
+			<trans-unit id="file.description">
+				<source>file</source>
+			</trans-unit>
+			<trans-unit id="bot.description">
+				<source>Bot</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

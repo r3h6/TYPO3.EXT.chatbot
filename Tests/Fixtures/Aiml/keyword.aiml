@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<aiml version="1.0">
+    <category>
+        <pattern>KEYWORD</pattern>
+        <template>Found KEYWORD</template>
+    </category>
+    <category>
+        <pattern>_ KEYWORD</pattern>
+        <template>Found KEYWORD</template>
+    </category>
+    <category>
+        <pattern>KEYWORD _</pattern>
+        <template>Found KEYWORD</template>
+    </category>
+    <category>
+        <pattern>_ KEYWORD *</pattern>
+        <template>Found KEYWORD</template>
+    </category>
+</aiml>

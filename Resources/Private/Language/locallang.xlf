@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2017-10-05T18:28:34Z" product-name="chatbot">
+		<header/>
+		<body>
+			<trans-unit id="tx_chatbot_domain_model_bot">
+				<source>Bot</source>
+			</trans-unit>
+			<trans-unit id="tx_chatbot_domain_model_bot.name">
+				<source>Name</source>
+			</trans-unit>
+			<trans-unit id="tx_chatbot_domain_model_bot.substitutions">
+				<source>Substitutions</source>
+			</trans-unit>
+			<trans-unit id="tx_chatbot_domain_model_bot.maps">
+				<source>Maps</source>
+			</trans-unit>
+			<trans-unit id="tx_chatbot_domain_model_bot.sets">
+				<source>Sets</source>
+			</trans-unit>
+			<trans-unit id="tx_chatbot_domain_model_bot.aiml">
+				<source>Aiml</source>
+			</trans-unit>
+			<trans-unit id="tx_chatbot_domain_model_graphmaster">
+				<source>Graphmaster</source>
+			</trans-unit>
+			<trans-unit id="tx_chatbot_domain_model_graphmaster.word">
+				<source>Word</source>
+			</trans-unit>
+			<trans-unit id="tx_chatbot_domain_model_graphmaster.parent">
+				<source>Parent</source>
+			</trans-unit>
+			<trans-unit id="tx_chatbot_domain_model_graphmaster.bot">
+				<source>Bot</source>
+			</trans-unit>
+			<trans-unit id="tx_chatbot_domain_model_graphmaster.template">
+				<source>Template</source>
+			</trans-unit>
+			<trans-unit id="tx_chatbot_domain_model_template">
+				<source>Template</source>
+			</trans-unit>
+			<trans-unit id="tx_chatbot_domain_model_template.template">
+				<source>Template</source>
+			</trans-unit>
+			<trans-unit id="tx_chatbot_domain_model_template.pattern">
+				<source>Pattern</source>
+			</trans-unit>
+			<trans-unit id="tx_chatbot_domain_model_template.file">
+				<source>File</source>
+			</trans-unit>
+			<trans-unit id="tx_chatbot_domain_model_template.bot">
+				<source>Bot</source>
+			</trans-unit>
+			<trans-unit id="tx_chatbot_domain_model_set">
+				<source>Set</source>
+			</trans-unit>
+			<trans-unit id="tx_chatbot_domain_model_map">
+				<source>Map</source>
+			</trans-unit>
+			<trans-unit id="tx_chatbot_domain_model_substitution">
+				<source>Substitution</source>
+			</trans-unit>
+			<trans-unit id="tx_chatbot_domain_model_aiml">
+				<source>Aiml</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

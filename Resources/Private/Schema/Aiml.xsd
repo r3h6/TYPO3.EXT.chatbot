@@ -1,0 +1,325 @@
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--This is covered under the GNU GPL.  Full text to come later.-->
+<!--Version 31052001-2335GMT-3:00 by Richard Wallace -->
+<!--Based on original work by Noel Bush -->
+<? xml version="1.0" encoding="UTF-8" ?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://alicebot.org/AIMLSchema"
+        xmlns:aiml="http://alicebot.org/AIMLSchema">
+    <!--root element: aiml-->
+    <element name="aiml">
+        <annotation>
+            <documentation>AIML root element</documentation>
+        </annotation>
+        <complexType>
+
+            <choice minOccurs="0" maxOccurs="unbounded">
+                <element name="topic" type="aiml:Topic"/>
+                <element name="category" type="aiml:Category"/>
+            </choice>
+            <attribute name="version">
+                <simpleType>
+                    <restriction base="string">
+                        <enumeration value="1.0"/>
+                    </restriction>
+
+                </simpleType>
+            </attribute>
+        </complexType>
+    </element>
+    <!--Topic: contained by root element-->
+    <complexType name="Topic">
+        <sequence>
+            <element name="category" type="aiml:Category"/>
+        </sequence>
+
+        <attribute name="name" type="aiml:PatternExpression"/>
+    </complexType>
+    <!--Category: contained by root element or Topic-->
+    <complexType name="Category">
+        <sequence>
+            <element name="pattern" type="aiml:Pattern"/>
+            <element name="that" type="aiml:That" minOccurs="0"/>
+            <element name="template" type="aiml:Template"/>
+        </sequence>
+
+    </complexType>
+    <!--Pattern: contained by Category-->
+    <complexType name="Pattern" mixed="true">
+        <simpleContent>
+            <restriction base="aiml:PatternExpression"/>
+        </simpleContent>
+    </complexType>
+    <!--PatternExpression: simpleType used by Topic (for name), Pattern, That, ConditionItem (value attribute)-->
+    <simpleType name="PatternExpression">
+
+        <restriction base="string">
+            <minLength value="1"/>
+            <pattern value="(\d|\p{Lu}|\s)+(\*|_)((\d|\p{Lu}|\s)*)"/>
+            <pattern value="(\*|_)((\d|\p{Lu}|\s)*)"/>
+            <pattern value="(\d|\p{Lu}|\s)+"/>
+        </restriction>
+    </simpleType>
+    <!--That: contained by Category-->
+    <simpleType name="That">
+
+            <restriction base="aiml:PatternExpression"/>
+    </simpleType>
+    <!--Template: contained by Category-->
+    <complexType name="Template" mixed="true">
+        <choice minOccurs="0" maxOccurs="unbounded">
+            <!--Each of these elements must be substituted for by one of the members of its SubstitutionGroup.-->
+            <element ref="aiml:ConditionTag"/>
+            <element ref="aiml:PatternReferenceTemplateTag"/>
+            <element ref="aiml:SetterTemplateTag"/>
+
+            <element ref="aiml:GetterTemplateTag"/>
+            <element ref="aiml:CovertTemplateTag"/>
+            <!--These elements do not belong to a SubstitutionGroup, or not all members of the corresponding SubstitutionGroup would be valid here.-->
+            <element name="gossip" type="aiml:Gossip"/>
+            <element name="if" type="aiml:If"/>
+            <element name="random" type="aiml:Random"/>
+            <!--Allow HTML-->
+            <any namespace="http://www.w3.org/1999/xhtml " processContents="skip"/>
+        </choice>
+
+    </complexType>
+    <!--Gossip: contained by Template-->
+    <complexType name="Gossip" mixed="true">
+        <choice minOccurs="0" maxOccurs="unbounded">
+            <!--Each of these elements must be substituted for by one of the members of its SubstitutionGroup.-->
+            <element ref="aiml:ConditionTag"/>
+            <element ref="aiml:PatternReferenceTemplateTag"/>
+            <element ref="aiml:GetterTemplateTag"/>
+            <!--These elements do not belong to a SubstitutionGroup, or not all members of the corresponding SubstitutionGroup would be valid here.-->
+
+            <element name="if" type="aiml:If" minOccurs="0"/>
+            <element name="random" type="aiml:Random"/>
+        </choice>
+    </complexType>
+    <!--If: contained by Template, Gossip-->
+    <complexType name="If">
+        <simpleContent>
+            <restriction base="string">
+                <attribute name="expr" type="aiml:JavaScriptExpression"/>
+
+            </restriction>
+        </simpleContent>
+    </complexType>
+    <!--JavaScriptExpression: contained by If (expr attribute)-->
+    <!--TO DO: find (or write!) valid JavaScript expression syntax-->
+    <simpleType name="JavaScriptExpression">
+        <restriction base="string"/>
+    </simpleType>
+    <complexType name="Random">
+
+        <sequence>
+            <element name="li" type="aiml:TemplateListItem" maxOccurs="unbounded"/>
+        </sequence>
+    </complexType>
+    <!--TemplateListItem: contained by Random-->
+    <complexType name="TemplateListItem" mixed="true">
+        <choice minOccurs="0" maxOccurs="unbounded">
+            <!--Each of these elements must be substituted for by one of the members of its SubstitutionGroup.-->
+            <element ref="aiml:PatternReferenceTemplateTag"/>
+
+            <element ref="aiml:SetterTemplateTag"/>
+            <element ref="aiml:GetterTemplateTag"/>
+            <element ref="aiml:CovertTemplateTag"/>
+            <!--These elements do not belong to a SubstitutionGroup, or not all members of the corresponding SubstitutionGroup would be valid here.-->
+            <element name="gossip" type="aiml:Gossip"/>
+            <element name="if" type="aiml:If" minOccurs="0"/>
+            <element name="random" type="aiml:Random"/>
+        </choice>
+    </complexType>
+
+    <!--ConditionTag (abstract): contained by Template, Gossip-->
+    <element name="ConditionTag" abstract="true"/>
+    <!--SubstitutionGroup ConditionTag-->
+    <element substitutionGroup="aiml:ConditionTag" name="ConditionItem" type="aiml:ConditionItem"/>
+    <element substitutionGroup="aiml:ConditionTag" name="ConditionList" type="aiml:ConditionList"/>
+    <!--ConditionItem: part of ConditionTag substitutionGroup-->
+    <complexType name="ConditionItem">
+        <attribute name="name" type="aiml:ConditionPredicate"/>
+        <attribute name="value" type="aiml:PatternExpression"/>
+
+    </complexType>
+    <!--ConditionPredicate: simpleType used by ConditionItem (name attribute)-->
+    <simpleType name="ConditionPredicate">
+        <restriction base="string">
+            <enumeration value="it"/>
+            <enumeration value="ip"/>
+            <enumeration value="he"/>
+            <enumeration value="she"/>
+            <enumeration value="age"/>
+
+            <enumeration value="name"/>
+            <enumeration value="topic"/>
+            <enumeration value="gender"/>
+            <enumeration value="location"/>
+            <enumeration value="star"/>
+            <enumeration value="thatstar"/>
+            <enumeration value="topicstar"/>
+        </restriction>
+    </simpleType>
+
+    <!--ConditionList: part of ConditionTag substitutionGroup-->
+    <complexType name="ConditionList">
+        <sequence>
+            <sequence>
+                <element name="li" ref="aiml:ConditionItem" maxOccurs="unbounded"/>
+            </sequence>
+            <sequence>
+                <element name="li" type="aiml:TemplateListItem" minOccurs="0"/>
+            </sequence>
+
+        </sequence>
+    </complexType>
+    <!--PatternReferenceTemplateTag (abstract): contained by Template, Gossip, TemplateListItem-->
+    <element name="PatternReferenceTemplateTag" abstract="true"/>
+    <!--SubstituteGroup for PatternReferenceTemplateTag-->
+    <element substitutionGroup="aiml:PatternReferenceTemplateTag" name="beforethat" type="aiml:AtomicElement"/>
+    <element substitutionGroup="aiml:PatternReferenceTemplateTag" name="justthat" type="aiml:AtomicElement"/>
+    <element substitutionGroup="aiml:PatternReferenceTemplateTag" name="justbeforethat" type="aiml:AtomicElement"/>
+    <element substitutionGroup="aiml:PatternReferenceTemplateTag" name="person" type="aiml:Person"/>
+
+    <element substitutionGroup="aiml:PatternReferenceTemplateTag" name="person2" type="aiml:Person"/>
+    <element substitutionGroup="aiml:PatternReferenceTemplateTag" name="personf" type="aiml:AtomicElement"/>
+    <element substitutionGroup="aiml:PatternReferenceTemplateTag" name="star" type="aiml:AtomicElement"/>
+    <element substitutionGroup="aiml:PatternReferenceTemplateTag" name="that" type="aiml:AtomicElement"/>
+    <element substitutionGroup="aiml:PatternReferenceTemplateTag" name="thatstar" type="aiml:AtomicElement"/>
+    <element substitutionGroup="aiml:PatternReferenceTemplateTag" name="topicstar" type="aiml:AtomicElement"/>
+    <!--AtomicElement: a complexType used by {atomic elements in AIML}-->
+    <complexType name="AtomicElement"/>
+    <!--Person: a simpleType-->
+
+    <simpleType name="Person">
+        <restriction base="string">
+            <minLength value="0"/>
+            <pattern value="\p{Lu}*"/>
+        </restriction>
+    </simpleType>
+    <!--SetterTemplateTag (abstract): contained by Template, TemplateListItem-->
+    <element name="SetterTemplateTag" abstract="true"/>
+    <!--SubstitutionGroup SetterTemplateTag-->
+
+    <element substitutionGroup="aiml:SetterTemplateTag" name="setvar" type="aiml:SetVar"/>
+    <element substitutionGroup="aiml:SetterTemplateTag" name="set_he" type="aiml:SetPronoun"/>
+    <element substitutionGroup="aiml:SetterTemplateTag" name="set_male" type="aiml:AtomicElement"/>
+    <element substitutionGroup="aiml:SetterTemplateTag" name="set_female" type="aiml:AtomicElement"/>
+    <element substitutionGroup="aiml:SetterTemplateTag" name="set_it" type="aiml:SetPronoun"/>
+    <element substitutionGroup="aiml:SetterTemplateTag" name="set_she" type="aiml:SetPronoun"/>
+    <element substitutionGroup="aiml:SetterTemplateTag" name="set_they" type="aiml:SetPronoun"/>
+    <element substitutionGroup="aiml:SetterTemplateTag" name="set_topic" type="aiml:SetTopic"/>
+    <!--SetPronoun-->
+
+    <complexType name="SetPronoun" mixed="true">
+        <choice minOccurs="0" maxOccurs="unbounded">
+            <!--Each of these elements must be substituted for by one of the members of its SubstitutionGroup.-->
+            <element ref="aiml:ConditionTag"/>
+            <element ref="aiml:PatternReferenceTemplateTag"/>
+            <element ref="aiml:GetterTemplateTag"/>
+            <element ref="aiml:CovertTemplateTag"/>
+            <!--These elements do not belong to a SubstitutionGroup, or not all members of the corresponding SubstitutionGroup would be valid here.-->
+            <element name="if" type="aiml:If" minOccurs="0"/>
+
+            <element name="random" type="aiml:Random"/>
+            <element name="set_topic" type="aiml:SetTopic"/>
+            <element name="setvar" type="aiml:SetVar"/>
+        </choice>
+    </complexType>
+    <!--SetTopic-->
+    <complexType name="SetTopic" mixed="true">
+        <choice minOccurs="0" maxOccurs="unbounded">
+            <!--Each of these elements must be substituted for by one of the members of its SubstitutionGroup.-->
+
+            <element ref="aiml:ConditionTag"/>
+            <element ref="aiml:PatternReferenceTemplateTag"/>
+            <element ref="aiml:GetterTemplateTag"/>
+            <!--These elements do not belong to a SubstitutionGroup,
+            or not all members of the corresponding SubstitutionGroup would be valid here.-->
+            <element name="if" type="aiml:If" minOccurs="0"/>
+            <element name="random" type="aiml:Random"/>
+        </choice>
+    </complexType>
+    <!--SetVar-->
+
+    <complexType name="SetVar">
+        <simpleContent>
+            <restriction base="aiml:VariableName"/>
+        </simpleContent>
+    </complexType>
+    <!--VariableName: a simpleType used by SetVar (name attribute) and GetVar (name attribute)-->
+    <!--TO DO: enforce restrictions on variable names-->
+    <simpleType name="VariableName">
+        <restriction base="string">
+
+            <attribute name="name" type="string"/>
+        </restriction>
+    </simpleType>
+    <!--GetterTemplateTag (abstract): contained by Template, Gossip, TemplateListItem, SetPronoun, SetTopic-->
+    <element name="GetterTemplateTag" abstract="true"/>
+    <!--SubstitutionGroup GetterTemplateTag-->
+    <element substitutionGroup="aiml:GetterTemplateTag" name="getvar" type="aiml:GetVar"/>
+    <element substitutionGroup="aiml:GetterTemplateTag" name="get_he" type="aiml:AtomicElement"/>
+    <element substitutionGroup="aiml:GetterTemplateTag" name="get_male" type="aiml:AtomicElement"/>
+
+    <element substitutionGroup="aiml:GetterTemplateTag" name="get_female" type="aiml:AtomicElement"/>
+    <element substitutionGroup="aiml:GetterTemplateTag" name="get_it" type="aiml:AtomicElement"/>
+    <element substitutionGroup="aiml:GetterTemplateTag" name="get_she" type="aiml:AtomicElement"/>
+    <element substitutionGroup="aiml:GetterTemplateTag" name="get_they" type="aiml:AtomicElement"/>
+    <element substitutionGroup="aiml:GetterTemplateTag" name="get_topic" type="aiml:AtomicElement"/>
+    <element substitutionGroup="aiml:GetterTemplateTag" name="get_name" type="aiml:AtomicElement"/>
+    <!--GetVar: part of GetterTemplateTag substitutionGroup-->
+    <complexType name="GetVar">
+        <attribute name="name" type="aiml:VariableName"/>
+
+    </complexType>
+    <!--CovertTemplateTag (abstract): contained by Template, TemplateListItem, SetPronoun-->
+    <element name="CovertTemplateTag" abstract="true"/>
+    <!--SubstitutionGroup CovertTemplateTag-->
+    <element substitutionGroup="aiml:CovertTemplateTag" name="learn" type="aiml:Learn"/>
+    <element substitutionGroup="aiml:CovertTemplateTag" name="srai" type="aiml:SRAI"/>
+    <element substitutionGroup="aiml:CovertTemplateTag" name="sr" type="aiml:AtomicElement"/>
+    <element substitutionGroup="aiml:CovertTemplateTag" name="system" type="aiml:System"/>
+    <element substitutionGroup="aiml:CovertTemplateTag" name="think" type="aiml:Think"/>
+
+    <!--Learn: part of CovertTemplateTag substitutionGroup-->
+    <simpleType name="Learn">
+        <restriction base="anyURI"/>
+    </simpleType>
+    <!--SRAI: part of CovertTemplateTag substitutionGroup-->
+    <!--TO DO: change mixed="true" to allow ...?-->
+    <complexType name="SRAI" mixed="true">
+        <sequence minOccurs="0" maxOccurs="unbounded">
+            <element name="star" type="aiml:AtomicElement"/>
+
+        </sequence>
+    </complexType>
+    <!--System: part of CovertTemplateTag substitutionGroup-->
+    <simpleType name="System">
+        <restriction base="aiml:SystemCommand"/>
+    </simpleType>
+    <!--SystemCommand: a simpleType used by System-->
+    <!--TO DO: define valid system command syntax (or not?)-->
+    <simpleType name="SystemCommand">
+
+        <restriction base="string"/>
+    </simpleType>
+    <!--Think: part of CovertTemplateTag substitutionGroup-->
+    <complexType name="Think">
+        <choice maxOccurs="unbounded">
+            <!--Each of these elements must be substituted for by one of the members of its SubstitutionGroup.-->
+            <element ref="aiml:ConditionTag"/>
+            <element ref="aiml:PatternReferenceTemplateTag"/>
+            <element ref="aiml:SetterTemplateTag"/>
+
+            <element ref="aiml:GetterTemplateTag"/>
+            <!--These elements do not belong to a SubstitutionGroup, or not all members of the corresponding SubstitutionGroup would be valid here.-->
+            <element name="gossip" type="aiml:Gossip"/>
+            <element name="if" type="aiml:If" minOccurs="0"/>
+            <element name="random" type="aiml:Random"/>
+        </choice>
+    </complexType>
+</schema>
