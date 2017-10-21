@@ -13,6 +13,7 @@ use R3H6\Chatbot\Domain\Model\Bot;
 use R3H6\Chatbot\Domain\Resource\Aiml;
 use R3H6\Chatbot\Domain\Resource\AimlCategory;
 use R3H6\Chatbot\Domain\Resource\AimlPath;
+use R3H6\Chatbot\Domain\Graphmaster\Match;
 
 /***
  *
@@ -51,10 +52,13 @@ class GraphmasterRepository
     public function walk(AimlPath $path)
     {
         $this->time = time();
-        return $this->_walk($path, 0, 0, false);
+
+        $match = new Match();
+        $this->_walk($match, $path, 0, 0, false);
+        return $match;
     }
 
-    private function _walk(AimlPath $path, int $depth, int $parentWordUid, bool $wildcard)
+    private function _walk(Match $match, AimlPath $path, int $depth, int $parentWordUid, bool $wildcard)
     {
         if (time() - $this->time > 3) {
             throw new \Exception("Timeout", 1);
@@ -65,39 +69,49 @@ class GraphmasterRepository
             return;
         }
 
-        $lastWord = ($depth+1 >= count($path));
-
+        $isLastWord = ($depth+1 >= count($path));
         $word = $path->getWord($depth);
+        $pathType = $path->indexToType($depth);
 
-        if (strpos('#^_$', $searchWord) === false) {
-            $sequence = ['$'.$word, '#', '_', $word, '^', '*'];
+        if (strpos(AimlPath::WILCARDS, $word) === false) {
+            $sequence = [
+                AimlPath::WORD_PRIORITY_PREFIX.$word,
+                AimlPath::WILDCARD_HIGHER_PRIORITY,
+                AimlPath::WILDCARD_HIGH_PRIORITY,
+                $word,
+                AimlPath::WILDCARD_LOW_PRIORITY,
+                AimlPath::WILDCARD_LOWER_PRIORITY,
+            ];
         } else {
             $sequence = [$word];
         }
 
-        $this->getLogger()->error("Start $word, d $depth, p $parentWordUid, w $wildcard, l $lastWord");
+        $this->getLogger()->error("Start $word, d $depth, p $parentWordUid, w $wildcard, l $isLastWord");
 
         foreach ($sequence as $searchWord) {
 
             $this->getLogger()->error($searchWord);
 
-            $record = $this->findWord($searchWord, $parentWordUid);
+            $record = $this->findNode($searchWord, $parentWordUid);
             if ($record === false) {
                 continue;
             }
             $this->getLogger()->error('Found', $record);
 
-            if ($lastWord){
-
-                return $record;
+            if ($isLastWord){
+                $match->setTemplate($record);
+                return true;
             }
 
             $ret = null;
-            if (strpos('#^', $searchWord) !== false) {
-                $ret = $this->_walk($path, $depth, $record['uid'], true);
+            if (strpos(AimlPath::WILCARDS_ZERO_PLUS, $searchWord) !== false) {
+                // $match = clone $match;
+                $ret = $this->_walk($match, $path, $depth, $record['uid'], true);
             }
             if ($ret === null) {
-                $ret = $this->_walk($path, $depth + 1, $record['uid'], true);
+                // $match = clone $match;
+                $match->setStar($word, $pathType);
+                $ret = $this->_walk($match, $path, $depth + 1, $record['uid'], true);
             }
 
             if ($ret) {
@@ -106,7 +120,9 @@ class GraphmasterRepository
         }
 
         if ($wildcard) {
-            $ret = $this->_walk($path, $depth + 1, $parentWordUid, $wildcard);
+            // $match = clone $match;
+            $match->setStar($word, $pathType);
+            $ret = $this->_walk($match, $path, $depth + 1, $parentWordUid, $wildcard);
             if ($ret) {
                 return $ret;
             }
@@ -130,11 +146,11 @@ class GraphmasterRepository
         $path = $category->getPath();
         $currentWordUid = 0;
         foreach ($path as $word) {
-            $record = $this->findWord($word, $currentWordUid);
+            $record = $this->findNode($word, $currentWordUid);
             if (is_array($record)) {
                 $currentWordUid = $record['uid'];
             } else {
-                $currentWordUid = $this->addWord($word, $currentWordUid);
+                $currentWordUid = $this->addNode($word, $currentWordUid);
             }
         }
 
@@ -156,7 +172,7 @@ class GraphmasterRepository
         );
     }
 
-    private function addWord(string $word, int $previousWord): int
+    private function addNode(string $word, int $previousWord): int
     {
         $queryBuilder = $this->connection->createQueryBuilder();
         $queryBuilder
@@ -171,7 +187,7 @@ class GraphmasterRepository
         return (int) $this->connection->lastInsertId();
     }
 
-    private function findWord(string $word, int $previousWord)
+    private function findNode(string $word, int $previousWord)
     {
         $queryBuilder = $this->connection->createQueryBuilder();
         return $queryBuilder

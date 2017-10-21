@@ -19,6 +19,23 @@ namespace R3H6\Chatbot\Domain\Resource;
  */
 class AimlPath implements \Iterator, \Countable
 {
+    const PATH_TYPE_PATTERN = 'pattern';
+    const PATH_TYPE_THAT = 'that';
+    const PATH_TYPE_TOPIC = 'topic';
+
+    const PATH_SEPARATOR_THAT = '<that>';
+    const PATH_SEPARATOR_TOPIC = '<topic>';
+
+    const WORD_PRIORITY_PREFIX = '$';
+
+    const WILDCARD_HIGHER_PRIORITY = '#';
+    const WILDCARD_HIGH_PRIORITY = '_';
+    const WILDCARD_LOW_PRIORITY = '^';
+    const WILDCARD_LOWER_PRIORITY = '*';
+
+    const WILCARDS = self::WILDCARD_HIGHER_PRIORITY.self::WILDCARD_HIGH_PRIORITY.self::WILDCARD_LOW_PRIORITY.self::WILDCARD_LOWER_PRIORITY;
+    const WILCARDS_ZERO_PLUS = self::WILDCARD_HIGHER_PRIORITY.self::WILDCARD_LOW_PRIORITY;
+
     private $array;
     private $position;
     private $count;
@@ -35,11 +52,11 @@ class AimlPath implements \Iterator, \Countable
 
     public function __construct(string $pattern, string $that, string $topic)
     {
-        $this->array = preg_split('/\s+/', sprintf('%s <that> %s <topic> %s', $pattern, $that, $topic));
+        $this->array = preg_split('/\s+/', sprintf('%s %s %s %s %s', $pattern, self::PATH_SEPARATOR_THAT, $that, self::PATH_SEPARATOR_TOPIC, $topic));
         $this->position = 0;
         $this->count = count($this->array);
-        $this->thatIndex = array_search('<that>', $this->array);
-        $this->topicIndex = array_search('<topic>', $this->array);
+        $this->thatIndex = array_search(self::PATH_SEPARATOR_THAT, $this->array);
+        $this->topicIndex = array_search(self::PATH_SEPARATOR_TOPIC, $this->array);
     }
 
     public function getWord(int $index):string
@@ -49,6 +66,18 @@ class AimlPath implements \Iterator, \Countable
         }
         return $this->array[$index];
     }
+
+    public function indexToType(int $index)
+    {
+        if ($this->thatIndex && $index > $this->thatIndex) {
+            return self::PATH_TYPE_THAT;
+        }
+        if ($this->topicIndex && $index > $this->topicIndex) {
+            return self::PATH_TYPE_TOPIC;
+        }
+        return self::PATH_TYPE_PATTERN;
+    }
+
 
 
 

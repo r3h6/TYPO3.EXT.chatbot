@@ -49,9 +49,9 @@ class GraphmasterRepositoryTest extends \TYPO3\TestingFramework\Core\Functional\
         $this->subject->importAiml($aiml);
 
         $path = new AimlPath($input, $that, $topic);
-        $template = $this->subject->walk($path);
+        $match = $this->subject->walk($path);
 
-        $this->assertNotNull($template);
+        $this->assertNotNull($match->getTemplate());
     }
 
     /**
@@ -65,9 +65,9 @@ class GraphmasterRepositoryTest extends \TYPO3\TestingFramework\Core\Functional\
         $this->subject->importAiml($aiml);
 
         $path = new AimlPath($input, $that, $topic);
-        $template = $this->subject->walk($path);
+        $match = $this->subject->walk($path);
 
-        $this->assertNotNull($template);
+        $this->assertNotNull($match->getTemplate());
     }
 
     public function keywordsDataProvider()
