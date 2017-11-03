@@ -1,19 +1,9 @@
 <?php
-declare(strict_types=1);
+namespace R3H6\Chatbot\Domain;
 
-namespace R3H6\Chatbot\Domain\Repository;
-
-use TYPO3\CMS\Core\Log\LogManager;
+use R3H6\Chatbot\Domain\Model\Bot;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
-use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
-use TYPO3\CMS\Core\Database\ConnectionPool;
-use R3H6\Chatbot\Domain\Parser\AimlParser;
-use R3H6\Chatbot\Domain\Model\Bot;
-use R3H6\Chatbot\Domain\Resource\Aiml;
-use R3H6\Chatbot\Domain\Resource\AimlCategory;
-use R3H6\Chatbot\Domain\Resource\AimlPath;
-use R3H6\Chatbot\Domain\Graphmaster\Match;
 
 /***
  *
@@ -27,26 +17,18 @@ use R3H6\Chatbot\Domain\Graphmaster\Match;
  ***/
 
 /**
- * The repository for Graphmasters
+ * Graphmaster
  */
-class GraphmasterRepository
+class Graphmaster implements GraphmasterInterface
 {
-    const TABLE_NAME = 'tx_chatbot_domain_model_graphmaster';
-
     /**
-     * @var \R3H6\Chatbot\Domain\Model\Bot
+     * @var \R3H6\Chatbot\Domain\Graphmaster\GraphmasterInterface
      */
-    protected $bot;
-
-    /**
-     * @var \TYPO3\CMS\Core\Database\Connection
-     */
-    protected $connection;
+    protected $concreteGraphmaster;
 
     public function __construct(Bot $bot)
     {
-        $this->bot = $bot;
-        $this->connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable(self::TABLE_NAME);
+
     }
 
     public function walk(AimlPath $path):Match
@@ -94,6 +76,7 @@ class GraphmasterRepository
 
             $record = $this->findNode($searchWord, $parentWordUid);
             if ($record === false) {
+                $
                 continue;
             }
             $this->getLogger()->error('Found', $record);
@@ -148,6 +131,7 @@ class GraphmasterRepository
         foreach ($path as $word) {
             $record = $this->findNode($word, $currentWordUid);
             if (is_array($record)) {
+                $
                 $currentWordUid = $record['uid'];
             } else {
                 $currentWordUid = $this->addNode($word, $currentWordUid);
@@ -172,35 +156,19 @@ class GraphmasterRepository
         );
     }
 
-    private function addNode(string $word, int $previousWord): int
+    public function addNode(NodeInterface $node)
     {
-        $queryBuilder = $this->connection->createQueryBuilder();
-        $queryBuilder
-            ->insert(self::TABLE_NAME)
-            ->values([
-                'word' => $word,
-                'parent' => $previousWord,
-                'bot' => $this->bot->getUid()
-            ])
-            ->execute();
-
-        return (int) $this->connection->lastInsertId();
+        $this->concreteGraphmaster->addNode($node);
     }
 
-    private function findNode(string $word, int $previousWord)
+    public function findNode(string $word, NodeInterface $parentNode): NodeInterface
     {
-        $queryBuilder = $this->connection->createQueryBuilder();
-        return $queryBuilder
-            ->select('*')
-            ->from(self::TABLE_NAME)
-            ->where(
-                $queryBuilder->expr()->eq('word', $queryBuilder->createNamedParameter($word)),
-                $queryBuilder->expr()->eq('parent', $queryBuilder->createNamedParameter($previousWord, \PDO::PARAM_INT)),
-                $queryBuilder->expr()->eq('bot', $queryBuilder->createNamedParameter($this->bot->getUid(), \PDO::PARAM_INT))
-            )
-            ->setMaxResults(1)
-            ->execute()
-            ->fetch();
+        return $this->concreteGraphmaster->findNode($word, $parentNode);
+    }
+
+    public function getRootNode(): NodeInterface
+    {
+        return $this->concreteGraphmaster->getRoodNode();
     }
 
     /**

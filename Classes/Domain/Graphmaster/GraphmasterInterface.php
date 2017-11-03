@@ -15,7 +15,11 @@ namespace R3H6\Chatbot\Domain;
 /**
  * Graphmaster
  */
-class Graphmaster
+interface GraphmasterInterface
 {
+    public function addNode(NodeInterface $node);
 
+    public function findNode(string $word, NodeInterface $parentNode): NodeInterface;
+
+    public function getRootNode(): NodeInterface;
 }
