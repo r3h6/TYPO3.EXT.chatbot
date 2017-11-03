@@ -52,25 +52,25 @@ class GraphmasterTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function getParentReturnsInitialValueForGraphmaster()
+    public function getParentNodeReturnsInitialValueForGraphmaster()
     {
         self::assertEquals(
             null,
-            $this->subject->getParent()
+            $this->subject->getParentNode()
         );
     }
 
     /**
      * @test
      */
-    public function setParentForGraphmasterSetsParent()
+    public function setParentNodeForGraphmasterSetsParentNode()
     {
-        $parentFixture = new \R3H6\Chatbot\Domain\Model\Graphmaster();
-        $this->subject->setParent($parentFixture);
+        $parentNodeFixture = new \R3H6\Chatbot\Domain\Model\Graphmaster();
+        $this->subject->setParentNode($parentNodeFixture);
 
         self::assertAttributeEquals(
-            $parentFixture,
-            'parent',
+            $parentNodeFixture,
+            'parentNode',
             $this->subject
         );
     }

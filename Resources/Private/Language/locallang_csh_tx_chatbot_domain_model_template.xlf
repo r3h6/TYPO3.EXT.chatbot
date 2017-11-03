@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2017-10-05T18:28:34Z" product-name="chatbot">
+	<file source-language="en" datatype="plaintext" original="messages" date="2017-11-03T18:55:24Z" product-name="chatbot">
 		<header/>
 		<body>
 			<trans-unit id="template.description">
 				<source>Template</source>
 			</trans-unit>
 			<trans-unit id="pattern.description">
-				<source>pattern</source>
+				<source>Pattern</source>
+			</trans-unit>
+			<trans-unit id="that.description">
+				<source>That</source>
+			</trans-unit>
+			<trans-unit id="topic.description">
+				<source>Topic</source>
 			</trans-unit>
 			<trans-unit id="file.description">
-				<source>file</source>
+				<source>File</source>
 			</trans-unit>
 			<trans-unit id="bot.description">
 				<source>Bot</source>

@@ -29,7 +29,7 @@ class Graphmaster extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @var \R3H6\Chatbot\Domain\Model\Graphmaster
      */
-    protected $parent = null;
+    protected $parentNode = null;
 
     /**
      * Bot
@@ -64,27 +64,6 @@ class Graphmaster extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setWord($word)
     {
         $this->word = $word;
-    }
-
-    /**
-     * Returns the parent
-     *
-     * @return \R3H6\Chatbot\Domain\Model\Graphmaster $parent
-     */
-    public function getParent()
-    {
-        return $this->parent;
-    }
-
-    /**
-     * Sets the parent
-     *
-     * @param \R3H6\Chatbot\Domain\Model\Graphmaster $parent
-     * @return void
-     */
-    public function setParent(\R3H6\Chatbot\Domain\Model\Graphmaster $parent)
-    {
-        $this->parent = $parent;
     }
 
     /**
@@ -127,5 +106,26 @@ class Graphmaster extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setTemplate(\R3H6\Chatbot\Domain\Model\Template $template)
     {
         $this->template = $template;
+    }
+
+    /**
+     * Returns the parentNode
+     *
+     * @return \R3H6\Chatbot\Domain\Model\Graphmaster parentNode
+     */
+    public function getParentNode()
+    {
+        return $this->parentNode;
+    }
+
+    /**
+     * Sets the parentNode
+     *
+     * @param \R3H6\Chatbot\Domain\Model\Graphmaster $parentNode
+     * @return void
+     */
+    public function setParentNode(\R3H6\Chatbot\Domain\Model\Graphmaster $parentNode)
+    {
+        $this->parentNode = $parentNode;
     }
 }

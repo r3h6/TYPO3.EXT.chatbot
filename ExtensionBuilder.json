@@ -48,52 +48,7 @@
                     ]
                 },
                 "relationGroup": {
-                    "relations": [
-                        {
-                            "foreignRelationClass": "",
-                            "lazyLoading": false,
-                            "propertyIsExcludeField": false,
-                            "relationDescription": "",
-                            "relationName": "substitutions",
-                            "relationType": "zeroToMany",
-                            "relationWire": "[wired]",
-                            "renderType": "inline",
-                            "uid": "95715847629"
-                        },
-                        {
-                            "foreignRelationClass": "",
-                            "lazyLoading": false,
-                            "propertyIsExcludeField": false,
-                            "relationDescription": "",
-                            "relationName": "maps",
-                            "relationType": "zeroToMany",
-                            "relationWire": "[wired]",
-                            "renderType": "inline",
-                            "uid": "108184896482"
-                        },
-                        {
-                            "foreignRelationClass": "",
-                            "lazyLoading": false,
-                            "propertyIsExcludeField": false,
-                            "relationDescription": "",
-                            "relationName": "sets",
-                            "relationType": "zeroToMany",
-                            "relationWire": "[wired]",
-                            "renderType": "inline",
-                            "uid": "477184886352"
-                        },
-                        {
-                            "foreignRelationClass": "",
-                            "lazyLoading": false,
-                            "propertyIsExcludeField": false,
-                            "relationDescription": "",
-                            "relationName": "aiml",
-                            "relationType": "zeroToMany",
-                            "relationWire": "[wired]",
-                            "renderType": "inline",
-                            "uid": "137823747983"
-                        }
-                    ]
+                    "relations": []
                 }
             }
         },
@@ -116,9 +71,9 @@
                 },
                 "name": "Graphmaster",
                 "objectsettings": {
-                    "addDeletedField": true,
-                    "addHiddenField": true,
-                    "addStarttimeEndtimeFields": true,
+                    "addDeletedField": false,
+                    "addHiddenField": false,
+                    "addStarttimeEndtimeFields": false,
                     "aggregateRoot": true,
                     "categorizable": false,
                     "description": "",
@@ -149,7 +104,7 @@
                             "lazyLoading": false,
                             "propertyIsExcludeField": false,
                             "relationDescription": "Parent",
-                            "relationName": "parent",
+                            "relationName": "parentNode",
                             "relationType": "manyToOne",
                             "relationWire": "[wired]",
                             "renderType": "selectSingle",
@@ -184,8 +139,8 @@
         {
             "config": {
                 "position": [
-                    750,
-                    41
+                    774,
+                    15
                 ]
             },
             "name": "New Model Object",
@@ -227,7 +182,7 @@
                         {
                             "allowedFileTypes": "",
                             "maxItems": "1",
-                            "propertyDescription": "",
+                            "propertyDescription": "Pattern",
                             "propertyIsExcludeField": false,
                             "propertyIsRequired": false,
                             "propertyName": "pattern",
@@ -237,7 +192,27 @@
                         {
                             "allowedFileTypes": "",
                             "maxItems": "1",
-                            "propertyDescription": "",
+                            "propertyDescription": "That",
+                            "propertyIsExcludeField": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "that",
+                            "propertyType": "String",
+                            "uid": "1188127094403"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "Topic",
+                            "propertyIsExcludeField": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "topic",
+                            "propertyType": "String",
+                            "uid": "134107159580"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "File",
                             "propertyIsExcludeField": false,
                             "propertyIsRequired": false,
                             "propertyName": "file",
@@ -260,162 +235,6 @@
                             "uid": "98059368409"
                         }
                     ]
-                }
-            }
-        },
-        {
-            "config": {
-                "position": [
-                    760,
-                    276
-                ]
-            },
-            "name": "New Model Object",
-            "value": {
-                "actionGroup": {
-                    "_default0_list": false,
-                    "_default1_show": false,
-                    "_default2_new_create": false,
-                    "_default3_edit_update": false,
-                    "_default4_delete": false,
-                    "customActions": []
-                },
-                "name": "Set",
-                "objectsettings": {
-                    "addDeletedField": false,
-                    "addHiddenField": false,
-                    "addStarttimeEndtimeFields": false,
-                    "aggregateRoot": false,
-                    "categorizable": false,
-                    "description": "",
-                    "mapToTable": "",
-                    "parentClass": "",
-                    "sorting": false,
-                    "type": "Entity",
-                    "uid": "608541024449"
-                },
-                "propertyGroup": {
-                    "properties": []
-                },
-                "relationGroup": {
-                    "relations": []
-                }
-            }
-        },
-        {
-            "config": {
-                "position": [
-                    511,
-                    275
-                ]
-            },
-            "name": "New Model Object",
-            "value": {
-                "actionGroup": {
-                    "_default0_list": false,
-                    "_default1_show": false,
-                    "_default2_new_create": false,
-                    "_default3_edit_update": false,
-                    "_default4_delete": false,
-                    "customActions": []
-                },
-                "name": "Map",
-                "objectsettings": {
-                    "addDeletedField": false,
-                    "addHiddenField": false,
-                    "addStarttimeEndtimeFields": false,
-                    "aggregateRoot": false,
-                    "categorizable": false,
-                    "description": "",
-                    "mapToTable": "",
-                    "parentClass": "",
-                    "sorting": false,
-                    "type": "Entity",
-                    "uid": "720475699244"
-                },
-                "propertyGroup": {
-                    "properties": []
-                },
-                "relationGroup": {
-                    "relations": []
-                }
-            }
-        },
-        {
-            "config": {
-                "position": [
-                    286,
-                    224
-                ]
-            },
-            "name": "New Model Object",
-            "value": {
-                "actionGroup": {
-                    "_default0_list": false,
-                    "_default1_show": false,
-                    "_default2_new_create": false,
-                    "_default3_edit_update": false,
-                    "_default4_delete": false,
-                    "customActions": []
-                },
-                "name": "Substitution",
-                "objectsettings": {
-                    "addDeletedField": false,
-                    "addHiddenField": false,
-                    "addStarttimeEndtimeFields": false,
-                    "aggregateRoot": false,
-                    "categorizable": false,
-                    "description": "",
-                    "mapToTable": "",
-                    "parentClass": "",
-                    "sorting": false,
-                    "type": "Entity",
-                    "uid": "635553041162"
-                },
-                "propertyGroup": {
-                    "properties": []
-                },
-                "relationGroup": {
-                    "relations": []
-                }
-            }
-        },
-        {
-            "config": {
-                "position": [
-                    279,
-                    386
-                ]
-            },
-            "name": "New Model Object",
-            "value": {
-                "actionGroup": {
-                    "_default0_list": false,
-                    "_default1_show": false,
-                    "_default2_new_create": false,
-                    "_default3_edit_update": false,
-                    "_default4_delete": false,
-                    "customActions": []
-                },
-                "name": "Aiml",
-                "objectsettings": {
-                    "addDeletedField": false,
-                    "addHiddenField": false,
-                    "addStarttimeEndtimeFields": false,
-                    "aggregateRoot": false,
-                    "categorizable": false,
-                    "description": "",
-                    "mapToTable": "",
-                    "parentClass": "",
-                    "sorting": false,
-                    "type": "Entity",
-                    "uid": "7655239936"
-                },
-                "propertyGroup": {
-                    "properties": []
-                },
-                "relationGroup": {
-                    "relations": []
                 }
             }
         }
@@ -451,54 +270,6 @@
         "vendorName": "R3H6"
     },
     "wires": [
-        {
-            "src": {
-                "moduleId": 0,
-                "terminal": "relationWire_3",
-                "uid": "137823747983"
-            },
-            "tgt": {
-                "moduleId": 6,
-                "terminal": "SOURCES",
-                "uid": "7655239936"
-            }
-        },
-        {
-            "src": {
-                "moduleId": 0,
-                "terminal": "relationWire_2",
-                "uid": "477184886352"
-            },
-            "tgt": {
-                "moduleId": 3,
-                "terminal": "SOURCES",
-                "uid": "608541024449"
-            }
-        },
-        {
-            "src": {
-                "moduleId": 0,
-                "terminal": "relationWire_1",
-                "uid": "108184896482"
-            },
-            "tgt": {
-                "moduleId": 4,
-                "terminal": "SOURCES",
-                "uid": "720475699244"
-            }
-        },
-        {
-            "src": {
-                "moduleId": 0,
-                "terminal": "relationWire_0",
-                "uid": "95715847629"
-            },
-            "tgt": {
-                "moduleId": 5,
-                "terminal": "SOURCES",
-                "uid": "635553041162"
-            }
-        },
         {
             "src": {
                 "moduleId": 1,
@@ -549,7 +320,7 @@
         }
     ],
     "log": {
-        "last_modified": "2017-10-05 06:28",
+        "last_modified": "2017-11-03 06:55",
         "extension_builder_version": "8.7.0",
         "be_user": " (1)"
     }

@@ -77,6 +77,56 @@ class TemplateTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
+    public function getThatReturnsInitialValueForString()
+    {
+        self::assertSame(
+            '',
+            $this->subject->getThat()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setThatForStringSetsThat()
+    {
+        $this->subject->setThat('Conceived at T3CON10');
+
+        self::assertAttributeEquals(
+            'Conceived at T3CON10',
+            'that',
+            $this->subject
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getTopicReturnsInitialValueForString()
+    {
+        self::assertSame(
+            '',
+            $this->subject->getTopic()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setTopicForStringSetsTopic()
+    {
+        $this->subject->setTopic('Conceived at T3CON10');
+
+        self::assertAttributeEquals(
+            'Conceived at T3CON10',
+            'topic',
+            $this->subject
+        );
+    }
+
+    /**
+     * @test
+     */
     public function getFileReturnsInitialValueForString()
     {
         self::assertSame(

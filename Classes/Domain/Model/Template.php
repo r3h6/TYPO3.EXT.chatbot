@@ -25,14 +25,14 @@ class Template extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $template = '';
 
     /**
-     * pattern
+     * Pattern
      *
      * @var string
      */
     protected $pattern = '';
 
     /**
-     * file
+     * File
      *
      * @var string
      */
@@ -44,6 +44,20 @@ class Template extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var \R3H6\Chatbot\Domain\Model\Bot
      */
     protected $bot = null;
+
+    /**
+     * That
+     *
+     * @var string
+     */
+    protected $that = '';
+
+    /**
+     * Topic
+     *
+     * @var string
+     */
+    protected $topic = '';
 
     /**
      * Returns the template
@@ -127,5 +141,47 @@ class Template extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setBot(\R3H6\Chatbot\Domain\Model\Bot $bot)
     {
         $this->bot = $bot;
+    }
+
+    /**
+     * Returns the that
+     *
+     * @return string $that
+     */
+    public function getThat()
+    {
+        return $this->that;
+    }
+
+    /**
+     * Sets the that
+     *
+     * @param string $that
+     * @return void
+     */
+    public function setThat($that)
+    {
+        $this->that = $that;
+    }
+
+    /**
+     * Returns the topic
+     *
+     * @return string $topic
+     */
+    public function getTopic()
+    {
+        return $this->topic;
+    }
+
+    /**
+     * Sets the topic
+     *
+     * @param string $topic
+     * @return void
+     */
+    public function setTopic($topic)
+    {
+        $this->topic = $topic;
     }
 }

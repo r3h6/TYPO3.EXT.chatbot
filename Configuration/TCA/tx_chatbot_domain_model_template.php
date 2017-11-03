@@ -8,14 +8,14 @@ return [
         'cruser_id' => 'cruser_id',
         'enablecolumns' => [
         ],
-        'searchFields' => 'template,pattern,file,bot',
+        'searchFields' => 'template,pattern,that,topic,file,bot',
         'iconfile' => 'EXT:chatbot/Resources/Public/Icons/tx_chatbot_domain_model_template.gif'
     ],
     'interface' => [
-        'showRecordFieldList' => 'template, pattern, file, bot',
+        'showRecordFieldList' => 'template, pattern, that, topic, file, bot',
     ],
     'types' => [
-        '1' => ['showitem' => 'template, pattern, file, bot'],
+        '1' => ['showitem' => 'template, pattern, that, topic, file, bot'],
     ],
     'columns' => [
 
@@ -32,6 +32,24 @@ return [
         'pattern' => [
             'exclude' => false,
             'label' => 'LLL:EXT:chatbot/Resources/Private/Language/locallang_db.xlf:tx_chatbot_domain_model_template.pattern',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'trim'
+            ],
+        ],
+        'that' => [
+            'exclude' => false,
+            'label' => 'LLL:EXT:chatbot/Resources/Private/Language/locallang_db.xlf:tx_chatbot_domain_model_template.that',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'trim'
+            ],
+        ],
+        'topic' => [
+            'exclude' => false,
+            'label' => 'LLL:EXT:chatbot/Resources/Private/Language/locallang_db.xlf:tx_chatbot_domain_model_template.topic',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
