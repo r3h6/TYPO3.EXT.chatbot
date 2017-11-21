@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace R3H6\Chatbot\Domain\Model;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;

@@ -1,5 +1,10 @@
 <?php
+declare(strict_types=1);
+
 namespace R3H6\Chatbot\Domain\Model;
+
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use R3H6\Chatbot\Domain\Graphmaster\TemplateInterface;
 
 /***
  *
@@ -15,7 +20,7 @@ namespace R3H6\Chatbot\Domain\Model;
 /**
  * Template
  */
-class Template extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+class Template extends AbstractEntity implements TemplateInterface
 {
     /**
      * Template
@@ -64,7 +69,7 @@ class Template extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $template
      */
-    public function getTemplate()
+    public function getTemplate():string
     {
         return $this->template;
     }
@@ -75,7 +80,7 @@ class Template extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param string $template
      * @return void
      */
-    public function setTemplate($template)
+    public function setTemplate(string $template)
     {
         $this->template = $template;
     }
@@ -85,7 +90,7 @@ class Template extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $pattern
      */
-    public function getPattern()
+    public function getPattern():string
     {
         return $this->pattern;
     }
@@ -96,7 +101,7 @@ class Template extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param string $pattern
      * @return void
      */
-    public function setPattern($pattern)
+    public function setPattern(string $pattern)
     {
         $this->pattern = $pattern;
     }
@@ -106,7 +111,7 @@ class Template extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $file
      */
-    public function getFile()
+    public function getFile():string
     {
         return $this->file;
     }
@@ -117,7 +122,7 @@ class Template extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param string $file
      * @return void
      */
-    public function setFile($file)
+    public function setFile(string $file)
     {
         $this->file = $file;
     }
@@ -127,7 +132,7 @@ class Template extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return \R3H6\Chatbot\Domain\Model\Bot $bot
      */
-    public function getBot()
+    public function getBot():Bot
     {
         return $this->bot;
     }
@@ -148,7 +153,7 @@ class Template extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $that
      */
-    public function getThat()
+    public function getThat():string
     {
         return $this->that;
     }
@@ -159,7 +164,7 @@ class Template extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param string $that
      * @return void
      */
-    public function setThat($that)
+    public function setThat(string $that)
     {
         $this->that = $that;
     }
@@ -169,7 +174,7 @@ class Template extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $topic
      */
-    public function getTopic()
+    public function getTopic():string
     {
         return $this->topic;
     }
@@ -180,7 +185,7 @@ class Template extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param string $topic
      * @return void
      */
-    public function setTopic($topic)
+    public function setTopic(string $topic)
     {
         $this->topic = $topic;
     }

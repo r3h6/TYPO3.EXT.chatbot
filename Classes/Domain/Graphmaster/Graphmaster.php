@@ -115,7 +115,7 @@ class Graphmaster implements GraphmasterInterface
         return;
     }
 
-    public function importAiml(Aiml $aiml)
+    public function importAiml(Bot $bot, Aiml $aiml)
     {
         $signalSlotDispatcher = $this->getSignalSlotDispatcher();
         $signalSlotDispatcher->connect(AimlParser::class, AimlParser::SIGNAL_ON_CATEGORY_END, $this, 'importCategory');
@@ -124,44 +124,47 @@ class Graphmaster implements GraphmasterInterface
         $parser->parse($aiml);
     }
 
-    public function importCategory(AimlCategory $category)
+    public function importCategory(Bot $bot, AimlCategory $category)
     {
         $path = $category->getPath();
-        $currentWordUid = 0;
+        $parentNode = $this->getRootNode();
         foreach ($path as $word) {
-            $record = $this->findNode($word, $currentWordUid);
-            if (is_array($record)) {
-                $
-                $currentWordUid = $record['uid'];
+            $node = $this->findNode($word, $parentNode);
+            if ($node) {
+                $parentNode = $node;
             } else {
-                $currentWordUid = $this->addNode($word, $currentWordUid);
+                $newNode = $this->createNode();
+                $newNode->setWord($word);
+                $newNode->setParentNode($parentNode);
+                $this->addNode($newNode);
+                $parentNode = $newNode;
             }
         }
 
 
-        $con = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable('tx_chatbot_domain_model_template');
-        $con->insert(
-            'tx_chatbot_domain_model_template',
-            [
-                'template' => $category->getTemplate(),
-                'bot' => (int) $this->bot->getUid()
-            ]
-        );
-        $templateUid = (int) $con->lastInsertId();
+        // $con = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable('tx_chatbot_domain_model_template');
+        // $con->insert(
+        //     'tx_chatbot_domain_model_template',
+        //     [
+        //         'template' => $category->getTemplate(),
+        //         'bot' => (int) $this->bot->getUid()
+        //     ]
+        // );
+        // $templateUid = (int) $con->lastInsertId();
 
-        $this->connection->update(
-            self::TABLE_NAME,
-            ['template' => $templatUid],
-            ['uid' => $currentWordUid]
-        );
+        // $this->connection->update(
+        //     self::TABLE_NAME,
+        //     ['template' => $templatUid],
+        //     ['uid' => $currentWordUid]
+        // );
     }
 
-    public function addNode(NodeInterface $node)
+    public function addNode(Bot $bot, NodeInterface $node)
     {
         $this->concreteGraphmaster->addNode($node);
     }
 
-    public function findNode(string $word, NodeInterface $parentNode): NodeInterface
+    public function findNode(Bot $bot, string $word, NodeInterface $parentNode): NodeInterface
     {
         return $this->concreteGraphmaster->findNode($word, $parentNode);
     }
@@ -169,6 +172,11 @@ class Graphmaster implements GraphmasterInterface
     public function getRootNode(): NodeInterface
     {
         return $this->concreteGraphmaster->getRoodNode();
+    }
+
+    public function createNode(): NodeInterface
+    {
+        return $this->concreteGraphmaster->createNode();
     }
 
     /**

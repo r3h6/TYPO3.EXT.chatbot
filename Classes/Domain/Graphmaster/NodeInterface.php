@@ -17,14 +17,14 @@ namespace R3H6\Chatbot\Domain\Graphmaster;
  */
 interface NodeInterface
 {
-    public function __construct(string $word, NodeInterface $parentNode, TemplateInterface $template = null);
+    // public function __construct(string $word, NodeInterface $parentNode, TemplateInterface $template = null);
 
     public function getWord(): string;
-    // public function setWord(string $word);
+    public function setWord(string $word);
 
     public function getTemplate(): TemplateInterface;
-    // public function setTemplate(TemplateInterface $template);
+    public function setTemplate(TemplateInterface $template);
 
     public function getParentNode(): NodeInterface;
-    // public function setParentNode(NodeInterface $parentNode);
+    public function setParentNode(NodeInterface $parentNode);
 }

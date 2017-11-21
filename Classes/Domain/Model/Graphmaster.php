@@ -1,5 +1,11 @@
 <?php
+declare(strict_types=1);
+
 namespace R3H6\Chatbot\Domain\Model;
+
+use R3H6\Chatbot\Domain\Graphmaster\TemplateInterface;
+use R3H6\Chatbot\Domain\Graphmaster\NodeInterface;
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 /***
  *
@@ -15,7 +21,7 @@ namespace R3H6\Chatbot\Domain\Model;
 /**
  * Graphmaster
  */
-class Graphmaster extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+class Graphmaster extends AbstractEntity implements NodeInterface
 {
     /**
      * Word
@@ -45,12 +51,14 @@ class Graphmaster extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     protected $template = null;
 
+    // public function __construct(string $word, NodeInterface $parentNode, TemplateInterface $template = null);
+
     /**
      * Returns the word
      *
      * @return string $word
      */
-    public function getWord()
+    public function getWord(): string
     {
         return $this->word;
     }
@@ -61,7 +69,7 @@ class Graphmaster extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param string $word
      * @return void
      */
-    public function setWord($word)
+    public function setWord(string $word)
     {
         $this->word = $word;
     }
@@ -71,7 +79,7 @@ class Graphmaster extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return \R3H6\Chatbot\Domain\Model\Bot $bot
      */
-    public function getBot()
+    public function getBot(): Bot
     {
         return $this->bot;
     }
@@ -92,7 +100,7 @@ class Graphmaster extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return \R3H6\Chatbot\Domain\Model\Template $template
      */
-    public function getTemplate()
+    public function getTemplate():TemplateInterface
     {
         return $this->template;
     }
@@ -103,7 +111,7 @@ class Graphmaster extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param \R3H6\Chatbot\Domain\Model\Template $template
      * @return void
      */
-    public function setTemplate(\R3H6\Chatbot\Domain\Model\Template $template)
+    public function setTemplate(TemplateInterface $template)
     {
         $this->template = $template;
     }
@@ -113,7 +121,7 @@ class Graphmaster extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return \R3H6\Chatbot\Domain\Model\Graphmaster parentNode
      */
-    public function getParentNode()
+    public function getParentNode(): NodeInterface
     {
         return $this->parentNode;
     }
@@ -124,7 +132,7 @@ class Graphmaster extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param \R3H6\Chatbot\Domain\Model\Graphmaster $parentNode
      * @return void
      */
-    public function setParentNode(\R3H6\Chatbot\Domain\Model\Graphmaster $parentNode)
+    public function setParentNode(NodeInterface $parentNode)
     {
         $this->parentNode = $parentNode;
     }
