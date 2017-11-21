@@ -141,6 +141,11 @@ class Graphmaster implements GraphmasterInterface
             }
         }
 
+        $template = $parentNode->getTemplate();
+        $template->setPath($path);
+        $template->setTemplate();
+
+
 
         // $con = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable('tx_chatbot_domain_model_template');
         // $con->insert(
@@ -171,7 +176,7 @@ class Graphmaster implements GraphmasterInterface
 
     public function getRootNode(): NodeInterface
     {
-        return $this->concreteGraphmaster->getRoodNode();
+        return $this->concreteGraphmaster->getRootNode();
     }
 
     public function createNode(): NodeInterface
