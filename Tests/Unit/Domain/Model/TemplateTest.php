@@ -27,24 +27,24 @@ class TemplateTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function getTemplateReturnsInitialValueForString()
+    public function getAimlReturnsInitialValueForString()
     {
         self::assertSame(
             '',
-            $this->subject->getTemplate()
+            $this->subject->getAiml()
         );
     }
 
     /**
      * @test
      */
-    public function setTemplateForStringSetsTemplate()
+    public function setAimlForStringSetsAiml()
     {
-        $this->subject->setTemplate('Conceived at T3CON10');
+        $this->subject->setAiml('Conceived at T3CON10');
 
         self::assertAttributeEquals(
             'Conceived at T3CON10',
-            'template',
+            'aiml',
             $this->subject
         );
     }

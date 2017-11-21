@@ -2,26 +2,26 @@
 return [
     'ctrl' => [
         'title' => 'LLL:EXT:chatbot/Resources/Private/Language/locallang_db.xlf:tx_chatbot_domain_model_template',
-        'label' => 'template',
+        'label' => 'aiml',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
         'enablecolumns' => [
         ],
-        'searchFields' => 'template,pattern,that,topic,file,bot',
+        'searchFields' => 'aiml,pattern,that,topic,file,bot',
         'iconfile' => 'EXT:chatbot/Resources/Public/Icons/tx_chatbot_domain_model_template.gif'
     ],
     'interface' => [
-        'showRecordFieldList' => 'template, pattern, that, topic, file, bot',
+        'showRecordFieldList' => 'aiml, pattern, that, topic, file, bot',
     ],
     'types' => [
-        '1' => ['showitem' => 'template, pattern, that, topic, file, bot'],
+        '1' => ['showitem' => 'aiml, pattern, that, topic, file, bot'],
     ],
     'columns' => [
 
-        'template' => [
+        'aiml' => [
             'exclude' => false,
-            'label' => 'LLL:EXT:chatbot/Resources/Private/Language/locallang_db.xlf:tx_chatbot_domain_model_template.template',
+            'label' => 'LLL:EXT:chatbot/Resources/Private/Language/locallang_db.xlf:tx_chatbot_domain_model_template.aiml',
             'config' => [
                 'type' => 'text',
                 'cols' => 40,

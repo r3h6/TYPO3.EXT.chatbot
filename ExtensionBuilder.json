@@ -172,10 +172,10 @@
                         {
                             "allowedFileTypes": "",
                             "maxItems": "1",
-                            "propertyDescription": "Template",
+                            "propertyDescription": "Aiml",
                             "propertyIsExcludeField": false,
                             "propertyIsRequired": false,
-                            "propertyName": "template",
+                            "propertyName": "aiml",
                             "propertyType": "Text",
                             "uid": "367157744533"
                         },
@@ -320,7 +320,7 @@
         }
     ],
     "log": {
-        "last_modified": "2017-11-03 06:55",
+        "last_modified": "2017-11-21 07:42",
         "extension_builder_version": "8.7.0",
         "be_user": " (1)"
     }

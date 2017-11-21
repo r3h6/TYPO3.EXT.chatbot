@@ -47,7 +47,7 @@ CREATE TABLE tx_chatbot_domain_model_template (
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
 
-	template text,
+	aiml text,
 	pattern varchar(255) DEFAULT '' NOT NULL,
 	that varchar(255) DEFAULT '' NOT NULL,
 	topic varchar(255) DEFAULT '' NOT NULL,

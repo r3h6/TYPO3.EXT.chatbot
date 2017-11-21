@@ -23,11 +23,11 @@ use R3H6\Chatbot\Domain\Graphmaster\TemplateInterface;
 class Template extends AbstractEntity implements TemplateInterface
 {
     /**
-     * Template
+     * Aiml
      *
      * @var string
      */
-    protected $template = '';
+    protected $aiml = '';
 
     /**
      * Pattern
@@ -35,20 +35,6 @@ class Template extends AbstractEntity implements TemplateInterface
      * @var string
      */
     protected $pattern = '';
-
-    /**
-     * File
-     *
-     * @var string
-     */
-    protected $file = '';
-
-    /**
-     * Bot
-     *
-     * @var \R3H6\Chatbot\Domain\Model\Bot
-     */
-    protected $bot = null;
 
     /**
      * That
@@ -65,25 +51,18 @@ class Template extends AbstractEntity implements TemplateInterface
     protected $topic = '';
 
     /**
-     * Returns the template
+     * File
      *
-     * @return string $template
+     * @var string
      */
-    public function getTemplate():string
-    {
-        return $this->template;
-    }
+    protected $file = '';
 
     /**
-     * Sets the template
+     * Bot
      *
-     * @param string $template
-     * @return void
+     * @var \R3H6\Chatbot\Domain\Model\Bot
      */
-    public function setTemplate(string $template)
-    {
-        $this->template = $template;
-    }
+    protected $bot = null;
 
     /**
      * Returns the pattern
@@ -188,5 +167,26 @@ class Template extends AbstractEntity implements TemplateInterface
     public function setTopic(string $topic)
     {
         $this->topic = $topic;
+    }
+
+    /**
+     * Returns the aiml
+     *
+     * @return string aiml
+     */
+    public function getAiml():string
+    {
+        return $this->aiml;
+    }
+
+    /**
+     * Sets the aiml
+     *
+     * @param string $aiml
+     * @return void
+     */
+    public function setAiml(string $aiml)
+    {
+        $this->aiml = $aiml;
     }
 }

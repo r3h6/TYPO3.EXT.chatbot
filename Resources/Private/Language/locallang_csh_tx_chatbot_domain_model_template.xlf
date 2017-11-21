@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2017-11-03T18:55:24Z" product-name="chatbot">
+	<file source-language="en" datatype="plaintext" original="messages" date="2017-11-21T19:41:57Z" product-name="chatbot">
 		<header/>
 		<body>
-			<trans-unit id="template.description">
-				<source>Template</source>
+			<trans-unit id="aiml.description">
+				<source>Aiml</source>
 			</trans-unit>
 			<trans-unit id="pattern.description">
 				<source>Pattern</source>
