@@ -1,7 +1,7 @@
 <?php
-namespace R3H6\Chatbot\Tests\Functional\Domain\Repository;
+namespace R3H6\Chatbot\Tests\Functional\Domain\Graphmaster;
 
-use R3H6\Chatbot\Domain\Repository\GraphmasterRepository;
+use R3H6\Chatbot\Domain\Graphmaster\Graphmaster;
 use R3H6\Chatbot\Domain\Resource\AimlCategory;
 use R3H6\Chatbot\Domain\Resource\AimlPath;
 use R3H6\Chatbot\Domain\Resource\Aiml;
@@ -10,12 +10,12 @@ use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use R3H6\Chatbot\Tests\Fixtures\Bot\AliceBot;
 
-class GraphmasterRepositoryTest extends \TYPO3\TestingFramework\Core\Functional\FunctionalTestCase
+class GraphmasterTest extends \TYPO3\TestingFramework\Core\Functional\FunctionalTestCase
 {
     protected $testExtensionsToLoad = [ 'typo3conf/ext/chatbot' ];
 
     /**
-     * @var \R3H6\Chatbot\Domain\Repository\GraphmasterRepository
+     * @var \R3H6\Chatbot\Domain\Graphmaster\Graphmaster
      */
     protected $subject;
 
@@ -25,7 +25,7 @@ class GraphmasterRepositoryTest extends \TYPO3\TestingFramework\Core\Functional\
 
         $botFixture = new AliceBot();
 
-        $this->subject = GeneralUtility::makeInstance(ObjectManager::class)->get(GraphmasterRepository::class, $botFixture);
+        $this->subject = GeneralUtility::makeInstance(ObjectManager::class)->get(Graphmaster::class, $botFixture);
     }
 
     /**

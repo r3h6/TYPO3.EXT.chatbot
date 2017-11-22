@@ -1,5 +1,5 @@
 <?php
-namespace R3H6\Chatbot\Domain;
+namespace R3H6\Chatbot\Domain\Graphmaster;
 
 use R3H6\Chatbot\Domain\Model\Bot;
 
@@ -19,11 +19,14 @@ use R3H6\Chatbot\Domain\Model\Bot;
  */
 interface GraphmasterInterface
 {
-    public function addNode(Bot $bot, NodeInterface $node);
+    public function setBot(Bot $bot);
 
-    public function findNode(Bot $bot, string $word, NodeInterface $parentNode): NodeInterface;
+    public function setNode(NodeInterface $node);
 
-    public function getRootNode(): NodeInterface;
+    public function findNode(string $word, NodeInterface $parentNode = null);
+
+    // public function getRootNode(): NodeInterface;
 
     public function createNode(): NodeInterface;
+    public function createTemplate(): TemplateInterface;
 }

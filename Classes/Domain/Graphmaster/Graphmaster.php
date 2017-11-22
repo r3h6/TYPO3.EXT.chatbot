@@ -1,9 +1,12 @@
 <?php
-namespace R3H6\Chatbot\Domain;
+namespace R3H6\Chatbot\Domain\Graphmaster;
 
 use R3H6\Chatbot\Domain\Model\Bot;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
+use R3H6\Chatbot\Domain\Repository\GraphmasterRepository;
+use R3H6\Chatbot\Domain\Resource\AimlCategory;
+use TYPO3\CMS\Core\Log\LogManager;
 
 /***
  *
@@ -26,9 +29,23 @@ class Graphmaster implements GraphmasterInterface
      */
     protected $concreteGraphmaster;
 
+    protected $bot;
+
+    /**
+     * @var \TYPO3\CMS\Core\Log\Logger
+     */
+    protected $logger;
+
     public function __construct(Bot $bot)
     {
+        $this->concreteGraphmaster = GeneralUtility::makeInstance(ObjectManager::class)->get(GraphmasterRepository::class);
+        $this->setBot($bot);
+        $this->logger = $this->getLogger();
+    }
 
+    public function setBot(Bot $bot)
+    {
+        $this->concreteGraphmaster->setBot($bot);
     }
 
     public function walk(AimlPath $path):Match
@@ -40,7 +57,7 @@ class Graphmaster implements GraphmasterInterface
         return $match;
     }
 
-    private function _walk(Match $match, AimlPath $path, int $depth, int $parentWordUid, bool $wildcard)
+    private function _walk(Match $match, AimlPath $path, int $depth, int $parentWordUid, bool $wildcard): bool
     {
         if (time() - $this->time > 3) {
             throw new \Exception("Timeout", 1);
@@ -76,7 +93,6 @@ class Graphmaster implements GraphmasterInterface
 
             $record = $this->findNode($searchWord, $parentWordUid);
             if ($record === false) {
-                $
                 continue;
             }
             $this->getLogger()->error('Found', $record);
@@ -86,36 +102,32 @@ class Graphmaster implements GraphmasterInterface
                 return true;
             }
 
-            $ret = null;
             if (strpos(AimlPath::WILCARDS_ZERO_PLUS, $searchWord) !== false) {
                 // $match = clone $match;
-                $ret = $this->_walk($match, $path, $depth, $record['uid'], true);
+                if ($this->_walk($match, $path, $depth, $record['uid'], true)) {
+                    return true;
+                }
             }
-            if ($ret === null) {
                 // $match = clone $match;
-                $match->setStar($word, $pathType);
-                $ret = $this->_walk($match, $path, $depth + 1, $record['uid'], true);
-            }
-
-            if ($ret) {
-                return $ret;
+            $match->setStar($word, $pathType);
+            if ($this->_walk($match, $path, $depth + 1, $record['uid'], true)) {
+                return true;
             }
         }
 
         if ($wildcard) {
             // $match = clone $match;
             $match->setStar($word, $pathType);
-            $ret = $this->_walk($match, $path, $depth + 1, $parentWordUid, $wildcard);
-            if ($ret) {
-                return $ret;
+            if ($this->_walk($match, $path, $depth + 1, $parentWordUid, $wildcard)) {
+                return true;
             }
         }
 
         $this->getLogger()->error("End $word");
-        return;
+        return false;
     }
 
-    public function importAiml(Bot $bot, Aiml $aiml)
+    public function importAiml(Aiml $aiml)
     {
         $signalSlotDispatcher = $this->getSignalSlotDispatcher();
         $signalSlotDispatcher->connect(AimlParser::class, AimlParser::SIGNAL_ON_CATEGORY_END, $this, 'importCategory');
@@ -124,11 +136,14 @@ class Graphmaster implements GraphmasterInterface
         $parser->parse($aiml);
     }
 
-    public function importCategory(Bot $bot, AimlCategory $category)
+    public function importCategory(AimlCategory $category)
     {
         $path = $category->getPath();
-        $parentNode = $this->getRootNode();
+        $parentNode = null;
         foreach ($path as $word) {
+
+            $this->logger->error($word);
+
             $node = $this->findNode($word, $parentNode);
             if ($node) {
                 $parentNode = $node;
@@ -136,14 +151,27 @@ class Graphmaster implements GraphmasterInterface
                 $newNode = $this->createNode();
                 $newNode->setWord($word);
                 $newNode->setParentNode($parentNode);
-                $this->addNode($newNode);
+                $this->setNode($newNode);
                 $parentNode = $newNode;
             }
         }
 
-        $template = $parentNode->getTemplate();
-        $template->setPath($path);
-        $template->setTemplate();
+        $aiml = $category->getTemplate();
+
+        $newTemplate = $this->createTemplate();
+        $newTemplate->setPath($path);
+        $newTemplate->setAiml($aiml);
+
+        if ($parentNode->hasTemplate()) {
+            $policy = MergePolicy::cast(MergePolicy::KEEP_FIRST);
+            $template = CategoryUtility::merge($parentNode->getTemplate(), $newTemplate, $policy);
+        } else {
+            $template = $newTemplate;
+        }
+
+        $parentNode->setTemplate($template);
+
+        $this->setNode($parentNode);
 
 
 
@@ -164,20 +192,26 @@ class Graphmaster implements GraphmasterInterface
         // );
     }
 
-    public function addNode(Bot $bot, NodeInterface $node)
+    public function setNode(NodeInterface $node)
     {
-        $this->concreteGraphmaster->addNode($node);
+        $this->concreteGraphmaster->setNode($node);
     }
 
-    public function findNode(Bot $bot, string $word, NodeInterface $parentNode): NodeInterface
+    public function findNode(string $word, NodeInterface $parentNode = null)
     {
         return $this->concreteGraphmaster->findNode($word, $parentNode);
     }
 
-    public function getRootNode(): NodeInterface
+    // public function getRootNode(): NodeInterface
+    // {
+    //     return $this->concreteGraphmaster->getRootNode();
+    // }
+
+    public function createTemplate(): TemplateInterface
     {
-        return $this->concreteGraphmaster->getRootNode();
+        return $this->concreteGraphmaster->createTemplate();
     }
+
 
     public function createNode(): NodeInterface
     {

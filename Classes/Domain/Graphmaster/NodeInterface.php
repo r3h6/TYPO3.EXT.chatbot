@@ -22,9 +22,10 @@ interface NodeInterface
     public function getWord(): string;
     public function setWord(string $word);
 
-    public function getTemplate(): TemplateInterface;
-    public function setTemplate(TemplateInterface $template);
+    public function hasTemplate(): bool;
+    public function getTemplate();
+    public function setTemplate(TemplateInterface $template = null);
 
-    public function getParentNode(): NodeInterface;
-    public function setParentNode(NodeInterface $parentNode);
+    public function getParentNode();
+    public function setParentNode(NodeInterface $parentNode = null);
 }

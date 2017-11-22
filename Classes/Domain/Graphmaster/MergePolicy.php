@@ -1,8 +1,6 @@
 <?php
 namespace R3H6\Chatbot\Domain\Graphmaster;
 
-use R3H6\Chatbot\Domain\Resource\AimlPath;
-
 /***
  *
  * This file is part of the "Chatbot" Extension for TYPO3 CMS.
@@ -17,10 +15,11 @@ use R3H6\Chatbot\Domain\Resource\AimlPath;
 /**
  * Map
  */
-interface TemplateInterface
+class MergePolicy extends \TYPO3\CMS\Core\Type\Enumeration
 {
-    public function setAiml(string $aiml);
-    public function getAiml(): string;
+    const __default = self::KEEP_FIRST;
 
-    public function setPath(AimlPath $path);
+    const KEEP_FIRST = 0;
+    const KEEP_LAST = 1;
+    const RANDOM = 2;
 }

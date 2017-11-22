@@ -5,6 +5,7 @@ namespace R3H6\Chatbot\Domain\Model;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use R3H6\Chatbot\Domain\Graphmaster\TemplateInterface;
+use R3H6\Chatbot\Domain\Resource\AimlPath;
 
 /***
  *
@@ -188,5 +189,10 @@ class Template extends AbstractEntity implements TemplateInterface
     public function setAiml(string $aiml)
     {
         $this->aiml = $aiml;
+    }
+
+    public function setPath(AimlPath $path)
+    {
+        //
     }
 }

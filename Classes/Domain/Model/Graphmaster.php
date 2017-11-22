@@ -51,7 +51,14 @@ class Graphmaster extends AbstractEntity implements NodeInterface
      */
     protected $template = null;
 
-    // public function __construct(string $word, NodeInterface $parentNode, TemplateInterface $template = null);
+    public function setUid(int $uid)
+    {
+        $this->uid = $uid;
+    }
+
+    public function initializeObject()
+    {
+    }
 
     /**
      * Returns the word
@@ -79,7 +86,7 @@ class Graphmaster extends AbstractEntity implements NodeInterface
      *
      * @return \R3H6\Chatbot\Domain\Model\Bot $bot
      */
-    public function getBot(): Bot
+    public function getBot()
     {
         return $this->bot;
     }
@@ -92,7 +99,15 @@ class Graphmaster extends AbstractEntity implements NodeInterface
      */
     public function setBot(\R3H6\Chatbot\Domain\Model\Bot $bot)
     {
+        if ($this->template !== null) {
+            $this->template->setBot($bot);
+        }
         $this->bot = $bot;
+    }
+
+    public function hasTemplate(): bool
+    {
+        return $this->template !== null;
     }
 
     /**
@@ -100,7 +115,7 @@ class Graphmaster extends AbstractEntity implements NodeInterface
      *
      * @return \R3H6\Chatbot\Domain\Model\Template $template
      */
-    public function getTemplate():TemplateInterface
+    public function getTemplate()
     {
         return $this->template;
     }
@@ -111,7 +126,7 @@ class Graphmaster extends AbstractEntity implements NodeInterface
      * @param \R3H6\Chatbot\Domain\Model\Template $template
      * @return void
      */
-    public function setTemplate(TemplateInterface $template)
+    public function setTemplate(TemplateInterface $template = null)
     {
         $this->template = $template;
     }
@@ -121,7 +136,7 @@ class Graphmaster extends AbstractEntity implements NodeInterface
      *
      * @return \R3H6\Chatbot\Domain\Model\Graphmaster parentNode
      */
-    public function getParentNode(): NodeInterface
+    public function getParentNode()
     {
         return $this->parentNode;
     }
@@ -132,7 +147,7 @@ class Graphmaster extends AbstractEntity implements NodeInterface
      * @param \R3H6\Chatbot\Domain\Model\Graphmaster $parentNode
      * @return void
      */
-    public function setParentNode(NodeInterface $parentNode)
+    public function setParentNode(NodeInterface $parentNode = null)
     {
         $this->parentNode = $parentNode;
     }
