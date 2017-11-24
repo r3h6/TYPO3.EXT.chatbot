@@ -51,13 +51,14 @@ class Graphmaster extends AbstractEntity implements NodeInterface
      */
     protected $template = null;
 
-    public function setUid(int $uid)
+    // public function setUid(int $uid)
+    // {
+    //     $this->uid = $uid;
+    // }
+
+    public function __construct(int $uid = null)
     {
         $this->uid = $uid;
-    }
-
-    public function initializeObject()
-    {
     }
 
     /**

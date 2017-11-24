@@ -25,7 +25,7 @@ interface GraphmasterInterface
 
     public function findNode(string $word, NodeInterface $parentNode = null);
 
-    // public function getRootNode(): NodeInterface;
+    public function getRootNode(): NodeInterface;
 
     public function createNode(): NodeInterface;
     public function createTemplate(): TemplateInterface;

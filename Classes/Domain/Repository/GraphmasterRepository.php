@@ -45,8 +45,8 @@ class GraphmasterRepository extends \TYPO3\CMS\Extbase\Persistence\Repository im
 
     public function initializeObject()
     {
-        $this->rootNode = new Graphmaster();
-        $this->rootNode->setUid(0);
+        $this->rootNode = new Graphmaster(0);
+        // $this->rootNode->setUid(0);
     }
 
     public function setNode(NodeInterface $node)
@@ -69,13 +69,18 @@ class GraphmasterRepository extends \TYPO3\CMS\Extbase\Persistence\Repository im
     public function findNode(string $word, NodeInterface $parentNode = null)
     {
         $query = $this->createQuery();
+
         $query->matching(
             $query->logicalAnd(
                 $query->equals('word', $word),
-                $query->equals('parentNode', $parentNode)
+                $query->equals('parentNode', $parentNode),
+                $query->equals('bot', $this->bot)
             )
         );
         $query->setLimit(1);
+
+        // $queryParser = $this->objectManager->get(\TYPO3\CMS\Extbase\Persistence\Generic\Storage\Typo3DbQueryParser::class);
+        // $this->getLogger()->error($queryParser->convertQueryToDoctrineQueryBuilder($query)->getSQL());
         return $query->execute()->getFirst();
     }
 
@@ -84,13 +89,22 @@ class GraphmasterRepository extends \TYPO3\CMS\Extbase\Persistence\Repository im
         return new Template();
     }
 
-    // public function getRootNode(): NodeInterface
-    // {
-    //     return $this->rootNode;
-    // }
+    public function getRootNode(): NodeInterface
+    {
+        return $this->rootNode;
+    }
 
     public function createNode(): NodeInterface
     {
         return new Graphmaster();
+    }
+
+    /**
+     * Get class logger
+     *
+     * @return TYPO3\CMS\Core\Log\Logger
+     */
+    protected function getLogger (){
+        return \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Core\Log\LogManager')->getLogger(__CLASS__);
     }
 }
