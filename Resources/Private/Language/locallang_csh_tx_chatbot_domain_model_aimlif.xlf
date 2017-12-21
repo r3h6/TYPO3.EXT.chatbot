@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2017-12-21T21:27:10Z" product-name="chatbot">
+		<header/>
+		<body>
+			<trans-unit id="activation_count.description">
+				<source>activationCount</source>
+			</trans-unit>
+			<trans-unit id="pattern.description">
+				<source>Pattern</source>
+			</trans-unit>
+			<trans-unit id="that.description">
+				<source>That</source>
+			</trans-unit>
+			<trans-unit id="topic.description">
+				<source>Topic</source>
+			</trans-unit>
+			<trans-unit id="template.description">
+				<source>Aiml</source>
+			</trans-unit>
+			<trans-unit id="file_name.description">
+				<source>File</source>
+			</trans-unit>
+			<trans-unit id="bot.description">
+				<source>Bot</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

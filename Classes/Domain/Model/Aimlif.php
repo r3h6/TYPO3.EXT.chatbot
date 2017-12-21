@@ -1,12 +1,9 @@
 <?php
-declare(strict_types=1);
-
 namespace R3H6\Chatbot\Domain\Model;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use R3H6\Chatbot\Domain\Graphmaster\TemplateInterface;
 use R3H6\Chatbot\Domain\Resource\AimlPath;
-
 /***
  *
  * This file is part of the "Chatbot" Extension for TYPO3 CMS.
@@ -21,14 +18,14 @@ use R3H6\Chatbot\Domain\Resource\AimlPath;
 /**
  * Template
  */
-class Template extends AbstractEntity implements TemplateInterface
+class Aimlif extends AbstractEntity implements TemplateInterface
 {
     /**
      * Aiml
      *
      * @var string
      */
-    protected $aiml = '';
+    protected $template = '';
 
     /**
      * Pattern
@@ -56,7 +53,7 @@ class Template extends AbstractEntity implements TemplateInterface
      *
      * @var string
      */
-    protected $file = '';
+    protected $fileName = '';
 
     /**
      * Bot
@@ -66,11 +63,18 @@ class Template extends AbstractEntity implements TemplateInterface
     protected $bot = null;
 
     /**
+     * activationCount
+     *
+     * @var int
+     */
+    protected $activationCount = 0;
+
+    /**
      * Returns the pattern
      *
      * @return string $pattern
      */
-    public function getPattern():string
+    public function getPattern()
     {
         return $this->pattern;
     }
@@ -87,32 +91,11 @@ class Template extends AbstractEntity implements TemplateInterface
     }
 
     /**
-     * Returns the file
-     *
-     * @return string $file
-     */
-    public function getFile():string
-    {
-        return $this->file;
-    }
-
-    /**
-     * Sets the file
-     *
-     * @param string $file
-     * @return void
-     */
-    public function setFile(string $file)
-    {
-        $this->file = $file;
-    }
-
-    /**
      * Returns the bot
      *
      * @return \R3H6\Chatbot\Domain\Model\Bot $bot
      */
-    public function getBot():Bot
+    public function getBot()
     {
         return $this->bot;
     }
@@ -133,7 +116,7 @@ class Template extends AbstractEntity implements TemplateInterface
      *
      * @return string $that
      */
-    public function getThat():string
+    public function getThat()
     {
         return $this->that;
     }
@@ -154,7 +137,7 @@ class Template extends AbstractEntity implements TemplateInterface
      *
      * @return string $topic
      */
-    public function getTopic():string
+    public function getTopic()
     {
         return $this->topic;
     }
@@ -171,28 +154,73 @@ class Template extends AbstractEntity implements TemplateInterface
     }
 
     /**
-     * Returns the aiml
-     *
-     * @return string aiml
+     * @param AimlPath $path
      */
-    public function getAiml():string
+    public function setPath(AimlPath $path)
     {
-        return $this->aiml;
+
     }
 
     /**
-     * Sets the aiml
+     * Returns the template
      *
-     * @param string $aiml
-     * @return void
+     * @return string template
      */
-    public function setAiml(string $aiml)
+    public function getTemplate()
     {
-        $this->aiml = $aiml;
+        return $this->template;
     }
 
-    public function setPath(AimlPath $path)
+    /**
+     * Sets the template
+     *
+     * @param string $template
+     * @return void
+     */
+    public function setTemplate(string $template)
     {
-        //
+        $this->template = $template;
+    }
+
+    /**
+     * Returns the fileName
+     *
+     * @return string fileName
+     */
+    public function getFileName()
+    {
+        return $this->fileName;
+    }
+
+    /**
+     * Sets the fileName
+     *
+     * @param string $fileName
+     * @return void
+     */
+    public function setFileName(string $fileName)
+    {
+        $this->fileName = $fileName;
+    }
+
+    /**
+     * Returns the activationCount
+     *
+     * @return int $activationCount
+     */
+    public function getActivationCount()
+    {
+        return $this->activationCount;
+    }
+
+    /**
+     * Sets the activationCount
+     *
+     * @param int $activationCount
+     * @return void
+     */
+    public function setActivationCount($activationCount)
+    {
+        $this->activationCount = $activationCount;
     }
 }

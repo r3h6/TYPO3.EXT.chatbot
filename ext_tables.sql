@@ -40,18 +40,19 @@ CREATE TABLE tx_chatbot_domain_model_graphmaster (
 );
 
 #
-# Table structure for table 'tx_chatbot_domain_model_template'
+# Table structure for table 'tx_chatbot_domain_model_aimlif'
 #
-CREATE TABLE tx_chatbot_domain_model_template (
+CREATE TABLE tx_chatbot_domain_model_aimlif (
 
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
 
-	aiml text,
+	activation_count int(11) DEFAULT '0' NOT NULL,
 	pattern varchar(255) DEFAULT '' NOT NULL,
 	that varchar(255) DEFAULT '' NOT NULL,
 	topic varchar(255) DEFAULT '' NOT NULL,
-	file varchar(255) DEFAULT '' NOT NULL,
+	template text,
+	file_name varchar(255) DEFAULT '' NOT NULL,
 	bot int(11) unsigned DEFAULT '0',
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,

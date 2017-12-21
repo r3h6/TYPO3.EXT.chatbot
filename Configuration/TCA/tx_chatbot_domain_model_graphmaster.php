@@ -55,7 +55,7 @@ return [
             'label' => 'LLL:EXT:chatbot/Resources/Private/Language/locallang_db.xlf:tx_chatbot_domain_model_graphmaster.template',
             'config' => [
                 'type' => 'inline',
-                'foreign_table' => 'tx_chatbot_domain_model_template',
+                'foreign_table' => 'tx_chatbot_domain_model_aimlif',
                 'minitems' => 0,
                 'maxitems' => 1,
                 'appearance' => [

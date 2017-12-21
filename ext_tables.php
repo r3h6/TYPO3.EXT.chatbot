@@ -13,8 +13,8 @@ call_user_func(
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_chatbot_domain_model_graphmaster', 'EXT:chatbot/Resources/Private/Language/locallang_csh_tx_chatbot_domain_model_graphmaster.xlf');
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_chatbot_domain_model_graphmaster');
 
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_chatbot_domain_model_template', 'EXT:chatbot/Resources/Private/Language/locallang_csh_tx_chatbot_domain_model_template.xlf');
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_chatbot_domain_model_template');
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_chatbot_domain_model_aimlif', 'EXT:chatbot/Resources/Private/Language/locallang_csh_tx_chatbot_domain_model_aimlif.xlf');
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_chatbot_domain_model_aimlif');
 
     }
 );

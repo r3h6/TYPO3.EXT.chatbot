@@ -153,12 +153,12 @@
                     "_default4_delete": false,
                     "customActions": []
                 },
-                "name": "Template",
+                "name": "Aimlif",
                 "objectsettings": {
                     "addDeletedField": false,
                     "addHiddenField": false,
                     "addStarttimeEndtimeFields": false,
-                    "aggregateRoot": false,
+                    "aggregateRoot": true,
                     "categorizable": false,
                     "description": "",
                     "mapToTable": "",
@@ -172,12 +172,12 @@
                         {
                             "allowedFileTypes": "",
                             "maxItems": "1",
-                            "propertyDescription": "Aiml",
+                            "propertyDescription": "",
                             "propertyIsExcludeField": false,
                             "propertyIsRequired": false,
-                            "propertyName": "aiml",
-                            "propertyType": "Text",
-                            "uid": "367157744533"
+                            "propertyName": "activationCount",
+                            "propertyType": "Integer",
+                            "uid": "657517279222"
                         },
                         {
                             "allowedFileTypes": "",
@@ -212,10 +212,20 @@
                         {
                             "allowedFileTypes": "",
                             "maxItems": "1",
+                            "propertyDescription": "Aiml",
+                            "propertyIsExcludeField": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "template",
+                            "propertyType": "Text",
+                            "uid": "367157744533"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
                             "propertyDescription": "File",
                             "propertyIsExcludeField": false,
                             "propertyIsRequired": false,
-                            "propertyName": "file",
+                            "propertyName": "fileName",
                             "propertyType": "String",
                             "uid": "432549705836"
                         }
@@ -320,7 +330,7 @@
         }
     ],
     "log": {
-        "last_modified": "2017-11-21 07:42",
+        "last_modified": "2017-12-21 09:27",
         "extension_builder_version": "8.7.0",
         "be_user": " (1)"
     }

@@ -104,7 +104,7 @@ class GraphmasterTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function getTemplateReturnsInitialValueForTemplate()
+    public function getTemplateReturnsInitialValueForAimlif()
     {
         self::assertEquals(
             null,
@@ -115,9 +115,9 @@ class GraphmasterTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function setTemplateForTemplateSetsTemplate()
+    public function setTemplateForAimlifSetsTemplate()
     {
-        $templateFixture = new \R3H6\Chatbot\Domain\Model\Template();
+        $templateFixture = new \R3H6\Chatbot\Domain\Model\Aimlif();
         $this->subject->setTemplate($templateFixture);
 
         self::assertAttributeEquals(
