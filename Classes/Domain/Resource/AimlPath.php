@@ -16,6 +16,7 @@ namespace R3H6\Chatbot\Domain\Resource;
 
 /**
  * AimlPath
+ * @todo  Rename to Path
  */
 class AimlPath implements \Iterator, \Countable
 {

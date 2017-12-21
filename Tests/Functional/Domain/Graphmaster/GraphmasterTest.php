@@ -38,6 +38,51 @@ class GraphmasterTest extends \TYPO3\TestingFramework\Core\Functional\Functional
         $this->assertCSVDataSet('EXT:chatbot/Tests/Fixtures/DatabaseAssertions/ImportCategory.csv');
     }
 
+     /**
+     * @test
+     */
+    public function dublicate()
+    {
+        $aiml = new Aiml('EXT:chatbot/Tests/Fixtures/Aiml/dublicate.aiml');
+    }
+
+    /**
+     * @test
+     */
+    public function priority($input, $that, $topic, $expected)
+    {
+        $aiml = new Aiml('EXT:chatbot/Tests/Fixtures/Aiml/priority.aiml');
+
+        $path = new AimlPath($input, $that, $topic);
+        $match = $this->subject->walk($path);
+
+        $this->assertSame($expected, $match->getTemplate());
+    }
+
+    public function priorityDataProvider()
+    {
+        return [
+            ['WHO IS ALICE', '*', '*', 'I am Alice'],
+            ['ARE YOU ALICE', '*', '*', '<sr>'],
+        ];
+    }
+
+    /**
+     * @test
+     */
+    public function notGreedy()
+    {
+        $aiml = new Aiml('EXT:chatbot/Tests/Fixtures/Aiml/greedy.aiml');
+        $this->subject->importAiml($aiml);
+
+        $path = new AimlPath('First second third fourth fifth', '*', '*');
+        $match = $this->subject->walk($path);
+
+        $this->assertSame('First', $match->getStar(1));
+        $this->assertSame('second', $match->getStar(2));
+        $this->assertSame('third fourth fifth', $match->getStar(3));
+    }
+
     /**
      * @test
      * @group aiml1

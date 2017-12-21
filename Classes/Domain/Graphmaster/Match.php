@@ -1,5 +1,9 @@
 <?php
+declare(strict_types=1);
+
 namespace R3H6\Chatbot\Domain\Graphmaster;
+
+use R3H6\Chatbot\Domain\Resource\AimlPath;
 
 /***
  *
@@ -18,22 +22,33 @@ namespace R3H6\Chatbot\Domain\Graphmaster;
 class Match
 {
     private $star;
+    private $topicStar;
+    private $thatStar;
 
     private $template;
 
     public function __construct()
     {
-
+        $this->star = [];
+        $this->topicStar = [];
+        $this->thatStar = [];
     }
 
 
 
-    /**
-     * @return mixed
-     */
-    public function getStar()
+    public function getStar(int $index): string
     {
-        return $this->star;
+        return $this->star[$index];
+    }
+
+    public function getTopicStar(int $index): string
+    {
+        return $this->topicStar[$index];
+    }
+
+    public function getThatStar(int $index): string
+    {
+        return $this->thatStar[$index];
     }
 
     /**
@@ -43,10 +58,20 @@ class Match
      */
     public function setStar(string $word, string $type)
     {
-        if (!isset($this->star[$type])) {
-            $this->star[$type] = [];
+        switch ($type) {
+            case AimlPath::PATH_TYPE_PATTERN:
+                $this->star[] = $word;
+                break;
+            case AimlPath::PATH_TYPE_THAT:
+                $this->thatStar[] = $word;
+                break;
+            case AimlPath::PATH_TYPE_TOPIC:
+                $this->topicStar[] = $word;
+                break;
+            default:
+                throw new \InvalidArgumentException("Unknown type $type", 1511885492);
+                break;
         }
-        $this->star[$type][] = $star;
 
         return $this;
     }
