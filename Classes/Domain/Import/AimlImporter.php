@@ -40,6 +40,7 @@ class AimlImporter implements AimlParserEventHandlerInterface
 
     public function import(Aiml $aiml)
     {
+        // Delete by file name
         $parser = $this->getAimlParser();
         $parser->parse($aiml);
     }

@@ -134,23 +134,11 @@ class Graphmaster implements GraphmasterInterface
         return false;
     }
 
-    public function importAiml(Aiml $aiml)
+    public function importAimlif(Aimlif $aimlif)
     {
-        $signalSlotDispatcher = $this->getSignalSlotDispatcher();
-        $signalSlotDispatcher->connect(AimlParser::class, AimlParser::SIGNAL_ON_CATEGORY_END, $this, 'importCategory');
-
-        $parser = $this->getAimlParser();
-        $parser->parse($aiml);
-    }
-
-    public function importCategory(AimlCategory $category)
-    {
-        $path = $category->getPath();
+        $path = $aimlif->getPatternPath();
         $parentNode = $this->getRootNode();
         foreach ($path as $word) {
-
-            $this->logger->error($word);
-
             $node = $this->findNode($word, $parentNode);
             if ($node) {
                 $parentNode = $node;
@@ -162,42 +150,56 @@ class Graphmaster implements GraphmasterInterface
                 $parentNode = $newNode;
             }
         }
-
-        $aiml = $category->getTemplate();
-
-        $newTemplate = $this->createTemplate();
-        $newTemplate->setPath($path);
-        $newTemplate->setAiml($aiml);
-
-        if ($parentNode->hasTemplate()) {
-            $policy = MergePolicy::cast(MergePolicy::KEEP_FIRST);
-            $template = CategoryUtility::merge($parentNode->getTemplate(), $newTemplate, $policy);
-        } else {
-            $template = $newTemplate;
-        }
-
-        $parentNode->setTemplate($template);
-
-        $this->setNode($parentNode);
-
-
-
-        // $con = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable('tx_chatbot_domain_model_template');
-        // $con->insert(
-        //     'tx_chatbot_domain_model_template',
-        //     [
-        //         'template' => $category->getTemplate(),
-        //         'bot' => (int) $this->bot->getUid()
-        //     ]
-        // );
-        // $templateUid = (int) $con->lastInsertId();
-
-        // $this->connection->update(
-        //     self::TABLE_NAME,
-        //     ['template' => $templatUid],
-        //     ['uid' => $currentWordUid]
-        // );
+        $lastNode = $parentNode;
+        // add aimlif
     }
+
+    // public function importAiml(Aiml $aiml)
+    // {
+    //     $signalSlotDispatcher = $this->getSignalSlotDispatcher();
+    //     $signalSlotDispatcher->connect(AimlParser::class, AimlParser::SIGNAL_ON_CATEGORY_END, $this, 'importCategory');
+
+    //     $parser = $this->getAimlParser();
+    //     $parser->parse($aiml);
+    // }
+
+    // public function importCategory(AimlCategory $category)
+    // {
+    //     $path = $category->getPath();
+    //     $parentNode = $this->getRootNode();
+    //     foreach ($path as $word) {
+
+    //         $this->logger->error($word);
+
+    //         $node = $this->findNode($word, $parentNode);
+    //         if ($node) {
+    //             $parentNode = $node;
+    //         } else {
+    //             $newNode = $this->createNode();
+    //             $newNode->setWord($word);
+    //             $newNode->setParentNode($parentNode);
+    //             $this->setNode($newNode);
+    //             $parentNode = $newNode;
+    //         }
+    //     }
+
+    //     $aiml = $category->getTemplate();
+
+    //     $newTemplate = $this->createTemplate();
+    //     $newTemplate->setPath($path);
+    //     $newTemplate->setAiml($aiml);
+
+    //     if ($parentNode->hasTemplate()) {
+    //         $policy = MergePolicy::cast(MergePolicy::KEEP_FIRST);
+    //         $template = CategoryUtility::merge($parentNode->getTemplate(), $newTemplate, $policy);
+    //     } else {
+    //         $template = $newTemplate;
+    //     }
+
+    //     $parentNode->setTemplate($template);
+
+    //     $this->setNode($parentNode);
+    // }
 
     public function setNode(NodeInterface $node)
     {
