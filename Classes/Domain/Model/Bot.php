@@ -68,7 +68,4 @@ class Bot extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
             $match = $this->graphmaster->walk($path);
         }
     }
-
-
-    public function aaa
 }

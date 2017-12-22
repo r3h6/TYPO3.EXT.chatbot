@@ -199,4 +199,30 @@ class AimlifTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             $this->subject
         );
     }
+
+    /**
+     * @test
+     */
+    public function getGraphmasterNodeReturnsInitialValueForGraphmaster()
+    {
+        self::assertEquals(
+            null,
+            $this->subject->getGraphmasterNode()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setGraphmasterNodeForGraphmasterSetsGraphmasterNode()
+    {
+        $graphmasterNodeFixture = new \R3H6\Chatbot\Domain\Model\Graphmaster();
+        $this->subject->setGraphmasterNode($graphmasterNodeFixture);
+
+        self::assertAttributeEquals(
+            $graphmasterNodeFixture,
+            'graphmasterNode',
+            $this->subject
+        );
+    }
 }

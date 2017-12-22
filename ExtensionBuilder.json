@@ -120,17 +120,6 @@
                             "relationWire": "[wired]",
                             "renderType": "selectSingle",
                             "uid": "108559955307"
-                        },
-                        {
-                            "foreignRelationClass": "",
-                            "lazyLoading": false,
-                            "propertyIsExcludeField": false,
-                            "relationDescription": "Template",
-                            "relationName": "template",
-                            "relationType": "zeroToOne",
-                            "relationWire": "[wired]",
-                            "renderType": "selectSingle",
-                            "uid": "73442796364"
                         }
                     ]
                 }
@@ -236,13 +225,24 @@
                         {
                             "foreignRelationClass": "",
                             "lazyLoading": false,
-                            "propertyIsExcludeField": true,
+                            "propertyIsExcludeField": false,
                             "relationDescription": "Bot",
                             "relationName": "bot",
                             "relationType": "manyToOne",
                             "relationWire": "[wired]",
                             "renderType": "selectSingle",
                             "uid": "98059368409"
+                        },
+                        {
+                            "foreignRelationClass": "",
+                            "lazyLoading": true,
+                            "propertyIsExcludeField": false,
+                            "relationDescription": "Graphmaster node",
+                            "relationName": "graphmasterNode",
+                            "relationType": "manyToOne",
+                            "relationWire": "[wired]",
+                            "renderType": "selectSingle",
+                            "uid": "668386401914"
                         }
                     ]
                 }
@@ -306,18 +306,6 @@
         },
         {
             "src": {
-                "moduleId": 1,
-                "terminal": "relationWire_2",
-                "uid": "73442796364"
-            },
-            "tgt": {
-                "moduleId": 2,
-                "terminal": "SOURCES",
-                "uid": "10378343164"
-            }
-        },
-        {
-            "src": {
                 "moduleId": 2,
                 "terminal": "relationWire_0",
                 "uid": "98059368409"
@@ -327,10 +315,22 @@
                 "terminal": "SOURCES",
                 "uid": "356764496067"
             }
+        },
+        {
+            "src": {
+                "moduleId": 2,
+                "terminal": "relationWire_1",
+                "uid": "668386401914"
+            },
+            "tgt": {
+                "moduleId": 1,
+                "terminal": "SOURCES",
+                "uid": "1174716250325"
+            }
         }
     ],
     "log": {
-        "last_modified": "2017-12-21 09:27",
+        "last_modified": "2017-12-22 05:33",
         "extension_builder_version": "8.7.0",
         "be_user": " (1)"
     }

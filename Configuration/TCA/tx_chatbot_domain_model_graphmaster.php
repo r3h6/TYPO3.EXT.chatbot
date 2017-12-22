@@ -8,14 +8,14 @@ return [
         'cruser_id' => 'cruser_id',
         'enablecolumns' => [
         ],
-        'searchFields' => 'word,parent_node,bot,template',
+        'searchFields' => 'word,parent_node,bot',
         'iconfile' => 'EXT:chatbot/Resources/Public/Icons/tx_chatbot_domain_model_graphmaster.gif'
     ],
     'interface' => [
-        'showRecordFieldList' => 'word, parent_node, bot, template',
+        'showRecordFieldList' => 'word, parent_node, bot',
     ],
     'types' => [
-        '1' => ['showitem' => 'word, parent_node, bot, template'],
+        '1' => ['showitem' => 'word, parent_node, bot'],
     ],
     'columns' => [
 
@@ -48,23 +48,6 @@ return [
                 'foreign_table' => 'tx_chatbot_domain_model_bot',
                 'minitems' => 0,
                 'maxitems' => 1,
-            ],
-        ],
-        'template' => [
-            'exclude' => false,
-            'label' => 'LLL:EXT:chatbot/Resources/Private/Language/locallang_db.xlf:tx_chatbot_domain_model_graphmaster.template',
-            'config' => [
-                'type' => 'inline',
-                'foreign_table' => 'tx_chatbot_domain_model_aimlif',
-                'minitems' => 0,
-                'maxitems' => 1,
-                'appearance' => [
-                    'collapseAll' => 0,
-                    'levelLinksPosition' => 'top',
-                    'showSynchronizationLink' => 1,
-                    'showPossibleLocalizationRecords' => 1,
-                    'showAllLocalizationLink' => 1
-                ],
             ],
         ],
     

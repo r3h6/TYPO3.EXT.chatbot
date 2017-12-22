@@ -8,14 +8,14 @@ return [
         'cruser_id' => 'cruser_id',
         'enablecolumns' => [
         ],
-        'searchFields' => 'activation_count,pattern,that,topic,template,file_name,bot',
+        'searchFields' => 'activation_count,pattern,that,topic,template,file_name,bot,graphmaster_node',
         'iconfile' => 'EXT:chatbot/Resources/Public/Icons/tx_chatbot_domain_model_aimlif.gif'
     ],
     'interface' => [
-        'showRecordFieldList' => 'activation_count, pattern, that, topic, template, file_name, bot',
+        'showRecordFieldList' => 'activation_count, pattern, that, topic, template, file_name, bot, graphmaster_node',
     ],
     'types' => [
-        '1' => ['showitem' => 'activation_count, pattern, that, topic, template, file_name, bot'],
+        '1' => ['showitem' => 'activation_count, pattern, that, topic, template, file_name, bot, graphmaster_node'],
     ],
     'columns' => [
 
@@ -75,12 +75,23 @@ return [
             ],
         ],
         'bot' => [
-            'exclude' => true,
+            'exclude' => false,
             'label' => 'LLL:EXT:chatbot/Resources/Private/Language/locallang_db.xlf:tx_chatbot_domain_model_aimlif.bot',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'foreign_table' => 'tx_chatbot_domain_model_bot',
+                'minitems' => 0,
+                'maxitems' => 1,
+            ],
+        ],
+        'graphmaster_node' => [
+            'exclude' => false,
+            'label' => 'LLL:EXT:chatbot/Resources/Private/Language/locallang_db.xlf:tx_chatbot_domain_model_aimlif.graphmaster_node',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'foreign_table' => 'tx_chatbot_domain_model_graphmaster',
                 'minitems' => 0,
                 'maxitems' => 1,
             ],

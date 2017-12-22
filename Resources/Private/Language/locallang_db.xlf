@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2017-12-21T21:27:10Z" product-name="chatbot">
+	<file source-language="en" datatype="plaintext" original="messages" date="2017-12-22T17:33:22Z" product-name="chatbot">
 		<header/>
 		<body>
 			<trans-unit id="tx_chatbot_domain_model_bot">
@@ -20,9 +20,6 @@
 			</trans-unit>
 			<trans-unit id="tx_chatbot_domain_model_graphmaster.bot">
 				<source>Bot</source>
-			</trans-unit>
-			<trans-unit id="tx_chatbot_domain_model_graphmaster.template">
-				<source>Template</source>
 			</trans-unit>
 			<trans-unit id="tx_chatbot_domain_model_aimlif">
 				<source>Aimlif</source>
@@ -47,6 +44,9 @@
 			</trans-unit>
 			<trans-unit id="tx_chatbot_domain_model_aimlif.bot">
 				<source>Bot</source>
+			</trans-unit>
+			<trans-unit id="tx_chatbot_domain_model_aimlif.graphmaster_node">
+				<source>Graphmaster Node</source>
 			</trans-unit>
 		</body>
 	</file>
