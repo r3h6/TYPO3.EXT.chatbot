@@ -21,16 +21,34 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class Aiml
 {
-    public function __construct(string $aiml)
+    /**
+     * @var string
+     */
+    private $fileName;
+
+    /**
+     * @var string
+     */
+    private $aiml;
+
+    public function __construct(string $aiml, $fileName = 'unknown.aiml')
     {
         if (strtolower(substr($aiml, -5)) === '.aiml') {
+            $fileName = basename($fileName);
             $aiml = @file_get_contents(GeneralUtility::getFileAbsFileName($aiml));
             if ($aiml === false) {
                 throw new \RuntimeException("Argument is not a valid aiml file", 1508437846);
             }
         }
+        $this->fileName = $fileName;
         $this->aiml = $aiml;
     }
+
+    public function getFileName()
+    {
+        return $this->fileName;
+    }
+
     public function __toString()
     {
         return $this->aiml;

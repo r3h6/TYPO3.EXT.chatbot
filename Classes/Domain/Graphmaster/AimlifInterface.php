@@ -15,12 +15,8 @@ use R3H6\Chatbot\Domain\Resource\AimlPath;
  ***/
 
 /**
- * Map
+ * AimlifInterface
  */
-interface TemplateInterface
+interface AimlifInterface
 {
-    public function setAiml(string $aiml);
-    public function getAiml(): string;
-
-    public function setPath(AimlPath $path);
 }

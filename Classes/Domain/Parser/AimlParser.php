@@ -6,6 +6,7 @@ namespace R3H6\Chatbot\Domain\Parser;
 
 use \R3H6\Chatbot\Domain\Resource\Aiml;
 use \R3H6\Chatbot\Domain\Resource\AimlCategory;
+use \R3H6\Chatbot\Domain\Model\Aimlif;
 
 /***
  *
@@ -52,22 +53,33 @@ class AimlParser
     private $pattern;
 
     /**
+     * @var string
+     */
+    private $fileName;
+
+    /**
      * @var \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
      */
     private $signalSlotDispatcher;
 
+    /**
+     * @var \R3H6\Chatbot\Domain\Parser\AimlParserEventHandlerInterface
+     */
+    private $eventHandler;
 
-    public function __construct(\TYPO3\CMS\Extbase\SignalSlot\Dispatcher $signalSlotDispatcher)
+    public function __construct(AimlParserEventHandlerInterface $eventHandler)
     {
-        $this->signalSlotDispatcher = $signalSlotDispatcher;
+        $this->eventHandler = $eventHandler;
         $this->topic = ['*'];
         $this->that = '*';
         $this->template = '';
         $this->pattern = '';
+        $this->fileName = '';
     }
 
     public function parse(Aiml $aiml)
     {
+        $this->fileName = $aiml->getFileName();
         $element = simplexml_load_string((string) $aiml);
         $this->walk($element);
     }
@@ -115,8 +127,14 @@ class AimlParser
 
         switch ($name) {
             case self::ELEMENT_CATEGORY:
-                $category = new AimlCategory($this->template, $this->pattern, $this->that, end($this->topic));
-                $this->emitOnCategoryEnd($category);
+                $aimlif = new Aimlif();
+                $aimlif->setPattern($this->pattern);
+                $aimlif->setThat($this->that);
+                $aimlif->setTopic(end($this->topic));
+                $aimlif->setTemplate($this->template);
+                $aimlif->setFileName($this->fileName);
+                $this->eventHandler->onCategoryEnd($aimlif);
+                // $this->emitOnCategoryEnd($aimlif);
                 // print_r($category);
                 // exit;
                 break;
@@ -132,9 +150,9 @@ class AimlParser
         }
     }
 
-    private function emitOnCategoryEnd(AimlCategory $category)
+    private function emitOnCategoryEnd(Aimlif $aimlif)
     {
-        $this->signalSlotDispatcher->dispatch(__CLASS__, self::SIGNAL_ON_CATEGORY_END, [$category]);
+        $this->signalSlotDispatcher->dispatch(__CLASS__, self::SIGNAL_ON_CATEGORY_END, [$aimlif]);
     }
 
     // public function parse(Aiml $aiml)

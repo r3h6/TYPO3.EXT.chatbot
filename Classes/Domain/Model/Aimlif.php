@@ -1,9 +1,12 @@
 <?php
+declare(strict_types=1);
+
 namespace R3H6\Chatbot\Domain\Model;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
-use R3H6\Chatbot\Domain\Graphmaster\TemplateInterface;
+use R3H6\Chatbot\Domain\Graphmaster\AimlifInterface;
 use R3H6\Chatbot\Domain\Resource\AimlPath;
+
 /***
  *
  * This file is part of the "Chatbot" Extension for TYPO3 CMS.
@@ -16,9 +19,9 @@ use R3H6\Chatbot\Domain\Resource\AimlPath;
  ***/
 
 /**
- * Template
+ * Aimlif
  */
-class Aimlif extends AbstractEntity implements TemplateInterface
+class Aimlif extends AbstractEntity implements AimlifInterface
 {
     /**
      * Aiml
@@ -74,7 +77,7 @@ class Aimlif extends AbstractEntity implements TemplateInterface
      *
      * @return string $pattern
      */
-    public function getPattern()
+    public function getPattern(): string
     {
         return $this->pattern;
     }
@@ -116,7 +119,7 @@ class Aimlif extends AbstractEntity implements TemplateInterface
      *
      * @return string $that
      */
-    public function getThat()
+    public function getThat(): string
     {
         return $this->that;
     }
@@ -137,7 +140,7 @@ class Aimlif extends AbstractEntity implements TemplateInterface
      *
      * @return string $topic
      */
-    public function getTopic()
+    public function getTopic(): string
     {
         return $this->topic;
     }
@@ -166,7 +169,7 @@ class Aimlif extends AbstractEntity implements TemplateInterface
      *
      * @return string template
      */
-    public function getTemplate()
+    public function getTemplate(): string
     {
         return $this->template;
     }
@@ -187,7 +190,7 @@ class Aimlif extends AbstractEntity implements TemplateInterface
      *
      * @return string fileName
      */
-    public function getFileName()
+    public function getFileName(): string
     {
         return $this->fileName;
     }
@@ -208,7 +211,7 @@ class Aimlif extends AbstractEntity implements TemplateInterface
      *
      * @return int $activationCount
      */
-    public function getActivationCount()
+    public function getActivationCount(): int
     {
         return $this->activationCount;
     }
@@ -219,7 +222,7 @@ class Aimlif extends AbstractEntity implements TemplateInterface
      * @param int $activationCount
      * @return void
      */
-    public function setActivationCount($activationCount)
+    public function setActivationCount(int $activationCount)
     {
         $this->activationCount = $activationCount;
     }

@@ -225,21 +225,21 @@ class Graphmaster implements GraphmasterInterface
         return $this->concreteGraphmaster->createNode();
     }
 
-    /**
-     * @return \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
-     */
-    protected function getSignalSlotDispatcher(): Dispatcher
-    {
-        return GeneralUtility::makeInstance(ObjectManager::class)->get(Dispatcher::class);
-    }
+    // /**
+    //  * @return \TYPO3\CMS\Extbase\SignalSlot\Dispatcher
+    //  */
+    // protected function getSignalSlotDispatcher(): Dispatcher
+    // {
+    //     return GeneralUtility::makeInstance(ObjectManager::class)->get(Dispatcher::class);
+    // }
 
-    /**
-     * @return \R3H6\Chatbot\Domain\Parser\AimlParser
-     */
-    protected function getAimlParser(): AimlParser
-    {
-        return GeneralUtility::makeInstance(ObjectManager::class)->get(AimlParser::class);
-    }
+    // /**
+    //  * @return \R3H6\Chatbot\Domain\Parser\AimlParser
+    //  */
+    // protected function getAimlParser(): AimlParser
+    // {
+    //     return GeneralUtility::makeInstance(ObjectManager::class)->get(AimlParser::class);
+    // }
 
     /**
      * Get class logger
