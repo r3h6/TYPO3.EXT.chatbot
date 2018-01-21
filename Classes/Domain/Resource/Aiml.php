@@ -34,7 +34,7 @@ class Aiml
     public function __construct(string $aiml, $fileName = 'unknown.aiml')
     {
         if (strtolower(substr($aiml, -5)) === '.aiml') {
-            $fileName = basename($fileName);
+            $fileName = basename($aiml);
             $aiml = @file_get_contents(GeneralUtility::getFileAbsFileName($aiml));
             if ($aiml === false) {
                 throw new \RuntimeException("Argument is not a valid aiml file", 1508437846);

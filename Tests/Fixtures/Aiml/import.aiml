@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="1.0">
+    <category>
+        <that>THAT</that>
+        <topic>TOPIC</topic>
+        <pattern>PATTERN</pattern>
+        <template>Template</template>
+    </category>
+</aiml>

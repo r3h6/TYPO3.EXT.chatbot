@@ -6,6 +6,7 @@ use TYPO3\CMS\Extbase\Object\ObjectManager;
 use R3H6\Chatbot\Domain\Parser\AimlParser;
 use R3H6\Chatbot\Domain\Resource\Aiml;
 use R3H6\Chatbot\Domain\Model\Bot;
+use R3H6\Chatbot\Domain\Model\Aimlif;
 
 /***
  *
@@ -76,7 +77,7 @@ class AimlifRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 
 
         // Wenn mergen wie handhaben wenn unterschiedliche aiml files... löschen etc
-        parent::add($object);
+        parent::add($aimlif);
     }
 
     public function add($object)

@@ -1,13 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace R3H6\Chatbot\Domain\Importer;
+namespace R3H6\Chatbot\Domain\Import;
 
 use R3H6\Chatbot\Domain\Model\Bot;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use R3H6\Chatbot\Domain\Parser\AimlParser;
-use R3H6\Chatbot\Domain\Parser\AimlParserEventHandlerInterface
+use R3H6\Chatbot\Domain\Resource\Aiml;
+use R3H6\Chatbot\Domain\Parser\AimlParserEventHandlerInterface;
 
 /***
  *
@@ -28,6 +29,7 @@ class AimlImporter implements AimlParserEventHandlerInterface
     /**
      * [$aimlifRepository description]
      * @var \R3H6\Chatbot\Domain\Repository\AimlifRepository
+     * @inject
      */
     protected $aimlifRepository;
 

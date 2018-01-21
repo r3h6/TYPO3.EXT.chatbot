@@ -20,5 +20,5 @@ namespace R3H6\Chatbot\Domain\Parser;
  */
 interface AimlParserEventHandlerInterface
 {
-    public function onCategoryEnd(\R3H6\Chatbot\Domain\Model\Aimlif $aimlif)
+    public function onCategoryEnd(\R3H6\Chatbot\Domain\Model\Aimlif $aimlif);
 }

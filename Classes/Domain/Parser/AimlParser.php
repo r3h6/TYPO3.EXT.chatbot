@@ -134,9 +134,11 @@ class AimlParser
                 $aimlif->setTemplate($this->template);
                 $aimlif->setFileName($this->fileName);
                 $this->eventHandler->onCategoryEnd($aimlif);
-                // $this->emitOnCategoryEnd($aimlif);
-                // print_r($category);
-                // exit;
+
+                if (count($this->topic) > 1) {
+                    array_pop($this->topic);
+                }
+
                 break;
             case self::ELEMENT_PATTERN:
                 break;
@@ -145,7 +147,6 @@ class AimlParser
             case self::ELEMENT_THAT:
                 break;
             case self::ELEMENT_TOPIC:
-                array_pop($this->topic);
                 break;
         }
     }
